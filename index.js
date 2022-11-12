@@ -436,14 +436,14 @@ http
   })
   .listen(7860, () => console.log("http server up and running"));
 
-setInterval(async function () {
-  let lastuuid = await got(
-    "https://hf.space/embed/CodeON/Old-Instances-Be-Gone/+/getid/?space=UtilsON"
-  ).text();
-  if (lastuuid != UUID && /[0-9]+/.test(lastuuid)) {
-    process.exit(0);
-  }
-}, 60000);
+// setInterval(async function () {
+//   let lastuuid = await got(
+//     "https://hf.space/embed/CodeON/Old-Instances-Be-Gone/+/getid/?space=UtilsON"
+//   ).text();
+//   if (lastuuid != UUID && /[0-9]+/.test(lastuuid)) {
+//     process.exit(0);
+//   }
+// }, 60000);
 
 process.on("uncaughtException", (err, origin) => {
   console.log(err);
