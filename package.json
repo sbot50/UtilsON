@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "8ball.js": "latest",
     "@discordjs/rest": "latest",
+    "8ball.js": "latest",
     "acronymresolver": "latest",
     "base64-arraybuffer": "latest",
     "canvas": "latest",
@@ -57,7 +57,7 @@
     "youtube-search-api": "latest"
   },
   "devDependencies": {
-    "node": "^16.9.1"
+    "node": "latest"
   },
   "description": ""
 }
