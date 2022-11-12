@@ -26,10 +26,10 @@ const {
   EmbedBuilder,
   AttachmentBuilder,
 } = require("discord.js");
-got(
-  "https://hf.space/embed/CodeON/Old-Instances-Be-Gone/+/setid/?space=UtilsON&uuid=" +
-    UUID
-);
+// got(
+//   "https://hf.space/embed/CodeON/Old-Instances-Be-Gone/+/setid/?space=UtilsON&uuid=" +
+//     UUID
+// );
 let db = new Database();
 db.log(true);
 db.load();
