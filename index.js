@@ -213,7 +213,7 @@ client.on("guildMemberAdd", async (member) => {
 client.on("interactionCreate", async (interaction) => {
   let guild = await client.guilds.cache.get(interaction.guildId);
   let channel = await guild.channels.cache.get(interaction.channelId);
-  let needed = ["ViewChannel", "SendMessages", "SendMessagesInThreads"];
+  let needed = ["ViewChannel"];
   let hasperms = await checkperms(interaction, needed);
   if (!hasperms) {
     return;
