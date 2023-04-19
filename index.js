@@ -103,21 +103,22 @@ client.on("ready", () => {
   }
   (async () => {
     await db.load();
-    let num = 0;
-    client.guilds.cache.forEach((guild) => {
-      if (guild.name != "BladeBotList - Bots") {
-        let guildId = guild.id;
-        (async () => {
-          try {
-            await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-              body: commands,
-            });
-          } catch (error) {
-            console.log(error, clientId, guildId);
-          }
-        })();
-      }
-    });
+//     let num = 0;
+//     client.guilds.cache.forEach((guild) => {
+//       if (guild.name != "BladeBotList - Bots") {
+//         let guildId = guild.id;
+//         (async () => {
+//           try {
+//             await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+//               body: commands,
+//             });
+//           } catch (error) {
+//             console.log(error, clientId, guildId);
+//           }
+//         })();
+//       }
+//     });
+// Should be fine to comment this out as long as i dont add more commands
   })();
   setInterval(async () => {
     let count = 0;
