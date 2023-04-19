@@ -10,8 +10,7 @@ const client = new Client({
 });
 const token = process.env.BOT_TOKEN;
 const clientId = process.env.CLIENT_ID;
-const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
+const { REST, Routes } = require("discord.js");
 const fs = require("fs");
 const got = require("got");
 const rest = new REST({ version: "9" }).setToken(token);
@@ -114,7 +113,7 @@ client.on("ready", () => {
               body: commands,
             });
           } catch (error) {
-            console.log(error);
+            console.log(error, clientId, guildId);
           }
         })();
       }
