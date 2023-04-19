@@ -293,7 +293,7 @@ client.on("interactionCreate", async (interaction) => {
     let cmd;
     if (interaction.message.interaction != null) {
       cmd = interaction.message.interaction.commandName;
-    } else {that should still work
+    } else {
       cmd = "other";
     }
     let menu = interaction.customId.replace(/\d+/g, "");
