@@ -10,9 +10,9 @@ class Database {
     let res;
     try {
       res = await got("https://jsonbase.com/" + key + "/db").json();
-      print("[DB] Loaded!");
+      console.log("[DB] Loaded!");
     } catch {
-      print("[DB] Can't load database")
+      console.log("[DB] Can't load database")
     }
     if (res) {
       this.data = res;
