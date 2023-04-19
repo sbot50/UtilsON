@@ -25,10 +25,10 @@ const {
   EmbedBuilder,
   AttachmentBuilder,
 } = require("discord.js");
-got(
-  "https://hf.space/embed/CodeON/Old-Instances-Be-Gone/+/setid/?space=UtilsON&uuid=" +
-    UUID
-);
+// got(
+//   "https://hf.space/embed/CodeON/Old-Instances-Be-Gone/+/setid/?space=UtilsON&uuid=" +
+//     UUID
+// );
 let db = new Database();
 db.log(true);
 db.load();
@@ -103,22 +103,21 @@ client.on("ready", () => {
   }
   (async () => {
     await db.load();
-//     let num = 0;
-//     client.guilds.cache.forEach((guild) => {
-//       if (guild.name != "BladeBotList - Bots") {
-//         let guildId = guild.id;
-//         (async () => {
-//           try {
-//             await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-//               body: commands,
-//             });
-//           } catch (error) {
-//             console.log(error, clientId, guildId);
-//           }
-//         })();
-//       }
-//     });
-// Should be fine to comment this out as long as i dont add more commands
+    let num = 0;
+    client.guilds.cache.forEach((guild) => {
+      if (guild.name != "BladeBotList - Bots") {
+        let guildId = guild.id;
+        (async () => {
+          try {
+            await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+              body: commands,
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        })();
+      }
+    });
   })();
   setInterval(async () => {
     let count = 0;
@@ -294,7 +293,7 @@ client.on("interactionCreate", async (interaction) => {
     let cmd;
     if (interaction.message.interaction != null) {
       cmd = interaction.message.interaction.commandName;
-    } else {
+    } else {that should still work
       cmd = "other";
     }
     let menu = interaction.customId.replace(/\d+/g, "");
@@ -436,14 +435,14 @@ http
   })
   .listen(7860, () => console.log("http server up and running"));
 
-setInterval(async function () {
-  let lastuuid = await got(
-    "https://hf.space/embed/CodeON/Old-Instances-Be-Gone/+/getid/?space=UtilsON"
-  ).text();
-  if (lastuuid != UUID && /[0-9]+/.test(lastuuid)) {
-    process.exit(0);
-  }
-}, 60000);
+// setInterval(async function () {
+//   let lastuuid = await got(
+//     "https://hf.space/embed/CodeON/Old-Instances-Be-Gone/+/getid/?space=UtilsON"
+//   ).text();
+//   if (lastuuid != UUID && /[0-9]+/.test(lastuuid)) {
+//     process.exit(0);
+//   }
+// }, 60000);
 
 process.on("uncaughtException", (err, origin) => {
   console.log(err);
