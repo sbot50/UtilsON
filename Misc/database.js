@@ -10,7 +10,10 @@ class Database {
     let res;
     try {
       res = await got("https://jsonbase.com/" + key + "/db").json();
-    } catch {}
+      print("[DB] Loaded!");
+    } catch {
+      print("[DB] Can't load database")
+    }
     if (res) {
       this.data = res;
       return this.data;
