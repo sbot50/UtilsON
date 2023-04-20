@@ -26,7 +26,7 @@ module.exports = {
     let verified;
     if (badges.includes("VerifiedBot")) {
       verified = 1;
-      badges.remove(badges.indexOf("VerifiedBot"));
+      badges.splice(badges.indexOf("VerifiedBot"),1);
     }
     console.log(badges);
     let avatar = member.user.avatarURL();
