@@ -10,7 +10,7 @@ module.exports = {
     let name = guild.name;
     let id = guild.id;
     let icon = guild.iconURL();
-    let owner = "<@" + guild.ownerId + "> <:owner:871826695659868210>";
+    let owner = "<@" + guild.ownerId + "> <:Server_Crown_Badge:1098601421269651568>";
     let channels = await guild.channels.fetch();
     let categories = channels.filter(
       (c) => c.type == 4 || c.type == 14
