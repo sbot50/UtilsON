@@ -24,9 +24,9 @@ module.exports = {
     console.log(badges);
     badges = badges.toArray();
     let verified;
-    if (badges.includes("VerifiedBot")) {
+    if (badges.includes("65536")) {
       verified = 1;
-      badges.splice(badges.indexOf("VerifiedBot"),1);
+      badges.splice(badges.indexOf("65536"),1);
     }
     console.log(badges);
     let avatar = member.user.avatarURL();
@@ -74,7 +74,7 @@ module.exports = {
     if (member.id == guild.ownerId) {
       tag = tag + " <:Server_Crown_Badge:1098601421269651568>";
     }
-    if (member.bot) {
+    if (member.user.bot) {
       if (verified) {
         tag = tag + " <:VerifiedBot_1:1098608802883969175><:VerifiedBot_2:1098608805283106989>"
       } else {
