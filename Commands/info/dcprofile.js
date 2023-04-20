@@ -23,6 +23,11 @@ module.exports = {
     let badges = await member.user.fetchFlags();
     console.log(badges);
     badges = badges.toArray();
+    let verified;
+    if (badges.includes("VerifiedBot")) {
+      verified = 1;
+      badges.remove(badges.indexOf("VerifiedBot"));
+    }
     console.log(badges);
     let avatar = member.user.avatarURL();
     let buff;
@@ -70,8 +75,11 @@ module.exports = {
       tag = tag + " <:Server_Crown_Badge:1098601421269651568>";
     }
     if (member.bot) {
-      tag =
-        tag + " <:Bot_Part1:874382873304657960><:Bot_Part2:874383235587645491>";
+      if (verified) {
+        tag = tag + " <:VerifiedBot_1:1098608802883969175><:VerifiedBot_2:1098608805283106989>"
+      } else {
+        tag = tag + " <:Bot_1:1098612594102780036><:Bot_2:1098612596602585129>";
+      }
     }
     let id = member.id;
     let orgstatus = member.presence.activities[0];
