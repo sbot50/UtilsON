@@ -67,7 +67,7 @@ module.exports = {
     let nick = member.nickname;
     let tag = "<@" + member.id + ">";
     if (member.id == guild.ownerID) {
-      tag = tag + " <:owner:871826695659868210>";
+      tag = tag + " <:Server_Crown_Badge:1098601421269651568>";
     }
     if (member.bot) {
       tag =
