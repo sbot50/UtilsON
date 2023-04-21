@@ -71,14 +71,17 @@ module.exports = {
     }
     let nick = member.nickname;
     let tag = "<@" + member.id + ">";
+    if (member.id == "305034585941475349") {
+      tag = tag + " <:VerifiedSbot_1:1098944912470319184><:VerifiedSbot_2:1098944936096837644>"
+    }
     if (member.id == guild.ownerId) {
-      tag = tag + " <:Server_Crown_Badge:1098601421269651568>";
+      tag = tag + " <:Server_Crown_Badge:1098942243622109315>";
     }
     if (member.user.bot) {
       if (verified) {
-        tag = tag + " <:VerifiedBot_1:1098608802883969175><:VerifiedBot_2:1098608805283106989>"
+        tag = tag + " <:VerifiedBot_1:1098940733290991721><:VerifiedBot_2:1098940730640191551>"
       } else {
-        tag = tag + " <:Bot_1:1098612594102780036><:Bot_2:1098612596602585129>";
+        tag = tag + " <:Bot_1:1098940723014942741><:Bot_2:1098940726777229363>";
       }
     }
     let id = member.id;
