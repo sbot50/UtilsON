@@ -85,7 +85,10 @@ module.exports = {
       }
     }
     let id = member.id;
-    let orgstatus = member.presence.activities[0];
+    let orgstatus;
+    try {
+      orgstatus = member.presence.activities[0];
+    } catch {}
     let status = "";
     if (orgstatus != undefined) {
       if (orgstatus.name != null && orgstatus.name != "Custom Status") {
