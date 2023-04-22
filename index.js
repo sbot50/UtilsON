@@ -25,10 +25,6 @@ const {
   EmbedBuilder,
   AttachmentBuilder,
 } = require("discord.js");
-// got(
-//   "https://hf.space/embed/CodeON/Old-Instances-Be-Gone/+/setid/?space=UtilsON&uuid=" +
-//     UUID
-// );
 let db = new Database();
 db.log(true);
 db.load();
@@ -396,7 +392,7 @@ http
             fs.writeFileSync(`/tmp/${id}.png`, data);
             let rng = Math.random();
             embed.data.image = {
-              url: `https://hf.space/embed/CodeON/UtilsON/+/page/?id=${id}&rngstring=${rng}`,
+              url: `https://utilson.onrender.com/page/?id=${id}&rngstring=${rng}`,
             };
             console.log(query.done);
             if (query.done == "true") {
@@ -434,15 +430,6 @@ http
     }
   })
   .listen(7860, () => console.log("http server up and running"));
-
-// setInterval(async function () {
-//   let lastuuid = await got(
-//     "https://hf.space/embed/CodeON/Old-Instances-Be-Gone/+/getid/?space=UtilsON"
-//   ).text();
-//   if (lastuuid != UUID && /[0-9]+/.test(lastuuid)) {
-//     process.exit(0);
-//   }
-// }, 60000);
 
 process.on("uncaughtException", (err, origin) => {
   console.log(err);
