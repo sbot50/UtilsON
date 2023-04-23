@@ -4,7 +4,6 @@ const got = require("got");
 const is = require("imagescript");
 const webtest = require(`./../../Misc/webtest`);
 const fs = require("fs");
-const { createCanvas, loadImage } = require("canvas");
 
 module.exports = {
   data: new SlashCommandBuilder()

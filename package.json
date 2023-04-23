@@ -13,7 +13,6 @@
     "@discordjs/rest": "latest",
     "acronymresolver": "latest",
     "base64-arraybuffer": "latest",
-    "canvas": "latest",
     "chart.js": "latest",
     "chromedriver": "latest",
     "curse-text": "latest",
