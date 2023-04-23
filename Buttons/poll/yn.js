@@ -64,7 +64,7 @@ module.exports = {
       );
     let options = [];
     await message.guild.channels.cache.forEach((channel) => {
-      if (channel.type == 0) {
+      if (channel.type == 0 || channel.type == 5) {
         let option = {};
         option.label = channel.name;
         if (channel.parentId == null) {
