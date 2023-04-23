@@ -1,8 +1,3 @@
-const Chart = require("chart.js");
-const Canvas = require("canvas");
-const { registerFont } = require("canvas");
-let ctx = Canvas.createCanvas(400, 400).getContext("2d");
-registerFont("./Fonts/arial.ttf", { family: "Arial" });
 const {
   SlashCommandBuilder,
   EmbedBuilder,

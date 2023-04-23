@@ -1,5 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const { registerFont, createCanvas } = require("canvas");
 const Discord = require("discord.js");
 
 module.exports = {
