@@ -46,6 +46,8 @@
     "request-promise": "latest",
     "seedrandom": "latest",
     "selenium-webdriver": "latest",
+    "tic-tac-toe-minimax": "latest",
+    "tictactoe-minimax-ai": "latest",
     "trivia-api": "latest",
     "updated-youtube-info": "latest",
     "url-lengthener": "latest",
