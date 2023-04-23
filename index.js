@@ -13,7 +13,7 @@ const clientId = process.env.CLIENT_ID;
 const { REST, Routes } = require("discord.js");
 const fs = require("fs");
 const got = require("got");
-const rest = new REST({ version: "9" }).setToken(token);
+const rest = new REST().setToken(token);
 const commands = [];
 const commandFiles = fs.readdirSync("./Commands");
 const Discord = require("discord.js");
@@ -101,9 +101,17 @@ client.on("ready", () => {
 		await db.load();
 		let num = 0;
 		try {
-			await rest.put(Routes.applicationCommands(clientId), {
+			console.log(
+				`Started refreshing ${commands.length} application (/) commands.`
+			);
+
+			let cmds = await rest.put(Routes.applicationCommands(clientId), {
 				body: commands,
 			});
+
+			console.log(
+				`Successfully reloaded ${cmds.length} application (/) commands.`
+			);
 		} catch (error) {
 			console.log(error);
 		}
