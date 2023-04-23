@@ -83,21 +83,21 @@ module.exports = {
 			msgs = msgs.filter(
 				(msg) => msg.interaction == undefined || msg.interaction.id != interaction.id
 			);
-			if (Object.keys(msgs).length() == 0) {
+			if (Object.keys(msgs).length == 0) {
 				done = 1
 			}
 			for (let msg of msgs) {
 				if (sub == "multiple") {
 					index += 1;
 					msgcollection.append(msg);
-					if (index == 100 || index == args.amount || (index == Object.keys(msgs).length() && index != 100)) {
-						if (index == args.amount || (index == Object.keys(msgs).length() && index != 100)) {
+					if (index == 100 || index == args.amount || (index == Object.keys(msgs).length && index != 100)) {
+						if (index == args.amount || (index == Object.keys(msgs).length && index != 100)) {
 							done = 1;
 						} else {
 							args.amount -= 100;
 						}
 						index = 0;
-						if (msgcollection.length() < 2) {
+						if (msgcollection.length < 2) {
 							await channel.bulkDelete(msgcollection);
 						} else {
 							await msg[1].delete();
@@ -107,9 +107,9 @@ module.exports = {
 				} else if (sub == "all") {
 					index += 1;
 					msgcollection.append(msg);
-					if (index == 100 || (index == Object.keys(msgs).length() && index != 100)) {
+					if (index == 100 || (index == Object.keys(msgs).length && index != 100)) {
 						index = 0;
-						if (msgcollection.length() < 2) {
+						if (msgcollection.length < 2) {
 							await channel.bulkDelete(msgcollection);
 						} else {
 							await msg[1].delete();
@@ -124,7 +124,7 @@ module.exports = {
 							done = 1;
 						}
 						index = 0;
-						if (msgcollection.length() < 2) {
+						if (msgcollection.length < 2) {
 							await channel.bulkDelete(msgcollection);
 						} else {
 							await msg[1].delete();
