@@ -75,7 +75,7 @@ module.exports = {
 		msgs = msgs.filter(
 			(msg) => msg.interaction == undefined || msg.interaction.id != interaction.id
 		);
-
+		console.log(typeof msgs)
 		let err,index,done;
 		let msgcollection = [];
 		while (done != 1) {
