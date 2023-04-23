@@ -88,13 +88,14 @@ client.login(token).catch((err) => {
 
 client.on("ready", () => {
 	console.log("Logged in as " + client.user.tag + "!");
-	client.user.setActivity("with utilities!", { type: "PLAYING" });
+	client.user.setActivity("with utilities!", { type: 0 });
 	console.log("Set Activity")
 	for (const folder of commandFiles) {
 		for (const file of fs.readdirSync("./Commands/" + folder)) {
 			const command = require(`./Commands/${folder}/${file}`);
 			if (command.data != undefined) {
 				commands.push(command.data.toJSON());
+				console.log(command.data.toJSON())
 			}
 		}
 	}
