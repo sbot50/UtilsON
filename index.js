@@ -89,6 +89,7 @@ client.login(token).catch((err) => {
 client.on("ready", () => {
 	console.log("Logged in as " + client.user.tag + "!");
 	client.user.setActivity("with utilities!", { type: "PLAYING" });
+	console.log("Set Activity")
 	for (const folder of commandFiles) {
 		for (const file of fs.readdirSync("./Commands/" + folder)) {
 			const command = require(`./Commands/${folder}/${file}`);
@@ -97,6 +98,7 @@ client.on("ready", () => {
 			}
 		}
 	}
+	console.log("Gotten Commands List")
 	(async () => {
 		await db.load();
 		let num = 0;
