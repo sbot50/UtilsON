@@ -58,7 +58,7 @@
     "youtube-search-api": "latest"
   },
   "devDependencies": {
-    "node": "^16.9.1"
+    "node": "18.16.0"
   },
   "description": ""
 }

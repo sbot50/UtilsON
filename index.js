@@ -89,17 +89,14 @@ client.login(token).catch((err) => {
 client.on("ready", () => {
 	console.log("Logged in as " + client.user.tag + "!");
 	client.user.setActivity("with utilities!", { type: 0 });
-	console.log("Set Activity")
-	for (const folder of commandFiles) {
-		for (const file of fs.readdirSync("./Commands/" + folder)) {
-			const command = require(`./Commands/${folder}/${file}`);
+	for (let folder of commandFiles) {
+		for (let file of fs.readdirSync("./Commands/" + folder)) {
+			let command = require(`./Commands/${folder}/${file}`);
 			if (command.data != undefined) {
 				commands.push(command.data.toJSON());
-				console.log(command.data.toJSON())
 			}
 		}
 	}
-	console.log("Gotten Commands List")
 	(async () => {
 		await db.load();
 		let num = 0;
@@ -171,20 +168,6 @@ client.on("ready", () => {
 		await db.save();
 	}, 60000);
 });
-
-// client.on("guildCreate", (guild) => {
-//   let guildId = guild.id;
-//   db.write(guild.id, {});
-//   (async () => {
-//     try {
-//       await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-//         body: commands,
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   })();
-// });
 
 client.on("guildMemberAdd", async (member) => {
 	let values = await db.get(member.guild.id);
