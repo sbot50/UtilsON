@@ -87,70 +87,78 @@ module.exports = {
 			if (Object.keys(msgs).length == 0) {
 				done = 1;
 			}
-			for (let msg of msgs) {
-				if (sub == "multiple") {
-					index += 1;
-					msgcollection.append(msg);
-					console.log(
-						"Index: " +
-							index +
-							"\nArgs Amount: " +
-							args.amount +
-							"\nMsgs: " +
-							JSON.stringify(msgcollection)
-					);
-					if (
-						index == 100 ||
-						index == args.amount ||
-						index == Object.keys(msgs).length
-					) {
-						if (
-							index == args.amount ||
-							(index == Object.keys(msgs).length && index != 100)
-						) {
-							done = 1;
-						} else {
-							args.amount -= 100;
-						}
-						index = 0;
-						if (msgcollection.length < 2) {
-							await channel.bulkDelete(msgcollection);
-						} else {
-							await msg[1].delete();
-						}
-						let msgcollection = [];
-					}
-				} else if (sub == "all") {
-					index += 1;
-					msgcollection.append(msg);
-					if (index == 100 || (index == Object.keys(msgs).length && index != 100)) {
-						index = 0;
-						if (msgcollection.length < 2) {
-							await channel.bulkDelete(msgcollection);
-						} else {
-							await msg[1].delete();
-						}
-						let msgcollection = [];
-					}
-				} else if (sub == "until") {
-					index += 1;
-					msgcollection.append(msg);
-					if (index == 100 || msg.id == args.id) {
-						if (msg.id == args.id) {
-							done = 1;
-						}
-						index = 0;
-						if (msgcollection.length < 2) {
-							await channel.bulkDelete(msgcollection);
-						} else {
-							await msg[1].delete();
-						}
-						let msgcollection = [];
-					}
-				} else if (sub == "has") {
-					done = 1;
+			if (sub == "multiple") {
+				args.amount -= Object.keys(msgs).length;
+				if (msgcollection.length < 2) {
+					await channel.bulkDelete(msgs);
+				} else {
+					await msg[0][1].delete();
 				}
 			}
+			// for (let msg of msgs) {
+			// 	if (sub == "multiple") {
+			// 		index += 1;
+			// 		msgcollection.append(msg);
+			// 		console.log(
+			// 			"Index: " +
+			// 				index +
+			// 				"\nArgs Amount: " +
+			// 				args.amount +
+			// 				"\nMsgs: " +
+			// 				JSON.stringify(msgcollection)
+			// 		);
+			// 		if (
+			// 			index == 100 ||
+			// 			index == args.amount ||
+			// 			index == Object.keys(msgs).length
+			// 		) {
+			// 			if (
+			// 				index == args.amount ||
+			// 				(index == Object.keys(msgs).length && index != 100)
+			// 			) {
+			// 				done = 1;
+			// 			} else {
+			// 				args.amount -= 100;
+			// 			}
+			// 			index = 0;
+			// 			if (msgcollection.length < 2) {
+			// 				await channel.bulkDelete(msgcollection);
+			// 			} else {
+			// 				await msg[1].delete();
+			// 			}
+			// 			let msgcollection = [];
+			// 		}
+			// 	} else if (sub == "all") {
+			// 		index += 1;
+			// 		msgcollection.append(msg);
+			// 		if (index == 100 || (index == Object.keys(msgs).length && index != 100)) {
+			// 			index = 0;
+			// 			if (msgcollection.length < 2) {
+			// 				await channel.bulkDelete(msgcollection);
+			// 			} else {
+			// 				await msg[1].delete();
+			// 			}
+			// 			let msgcollection = [];
+			// 		}
+			// 	} else if (sub == "until") {
+			// 		index += 1;
+			// 		msgcollection.append(msg);
+			// 		if (index == 100 || msg.id == args.id) {
+			// 			if (msg.id == args.id) {
+			// 				done = 1;
+			// 			}
+			// 			index = 0;
+			// 			if (msgcollection.length < 2) {
+			// 				await channel.bulkDelete(msgcollection);
+			// 			} else {
+			// 				await msg[1].delete();
+			// 			}
+			// 			let msgcollection = [];
+			// 		}
+			// 	} else if (sub == "has") {
+			// 		done = 1;
+			// 	}
+			// }
 		}
 		embed = new EmbedBuilder()
 			.setColor(0x1cd0ce)
