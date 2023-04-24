@@ -19,12 +19,15 @@ const commandFiles = fs.readdirSync("./Commands");
 const Discord = require("discord.js");
 const Database = require("./Misc/database");
 const urlpackage = require("url");
-const UUID = Date.now();
+const UUID = Date.now() + "";
 const {
 	WebhookClient,
 	EmbedBuilder,
 	AttachmentBuilder,
 } = require("discord.js");
+got("https://oibg-1-t2290424.deta.app/setid/?space=UtilsON&uuid=" + UUID, {
+	headers: { auth: process.env.OIBG },
+});
 let db = new Database();
 db.log(true);
 db.load();
@@ -173,6 +176,15 @@ client.on("ready", () => {
 				await db.set(guild.id, v);
 			}
 		});
+		let lastuuid = await got(
+			"https://oibg-1-t2290424.deta.app/getid/?space=UtilsON",
+			{
+				headers: { auth: process.env.OIBG },
+			}
+		);
+		if (lastuuid != UUID && /[0-9]+/.test(lastuuid)) {
+			process.exit(0);
+		}
 		await db.save();
 	}, 60000);
 });
@@ -228,7 +240,7 @@ client.on("interactionCreate", async (interaction) => {
 			if (cmd != undefined) break;
 		}
 		let needed = cmd.permissions;
-		let hasperms = await checkperms(interaction, needed, deferred=1);
+		let hasperms = await checkperms(interaction, needed, (deferred = 1));
 		if (!hasperms) {
 			return;
 		}
