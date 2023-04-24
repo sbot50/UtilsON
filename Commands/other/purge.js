@@ -87,6 +87,7 @@ module.exports = {
 			if (Object.keys(msgs).length == 0) {
 				done = 1;
 			}
+			console.log("Amount: " + args.amount);
 			if (sub == "multiple") {
 				args.amount -= Object.keys(msgs).length;
 				if (msgcollection.length < 2) {
