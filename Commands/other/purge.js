@@ -89,7 +89,7 @@ module.exports = {
 			for (let msg of msgs) {
 				if (sub == "multiple") {
 					index += 1;
-					msgcollection.append(msg);
+					msgcollection.push(msg);
 					if (index == 100 || index == args.amount || index == Object.keys(msgs).length) {
 						if (index == args.amount || (index == Object.keys(msgs).length && index != 100)) {
 							done = 1;
@@ -106,7 +106,7 @@ module.exports = {
 					}
 				} else if (sub == "all") {
 					index += 1;
-					msgcollection.append(msg);
+					msgcollection.push(msg);
 					if (index == 100 || (index == Object.keys(msgs).length && index != 100)) {
 						index = 0;
 						if (msgcollection.length < 2) {
@@ -118,7 +118,7 @@ module.exports = {
 					}
 				} else if (sub == "until") {
 					index += 1;
-					msgcollection.append(msg);
+					msgcollection.push(msg);
 					if (index == 100 || msg.id == args.id) {
 						if (msg.id == args.id) {
 							done = 1;
