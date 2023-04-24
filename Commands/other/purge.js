@@ -84,8 +84,8 @@ module.exports = {
 					msg.interaction == undefined || msg.interaction.id != interaction.id
 			);
 			console.log("Remove Amount: " + args.amount)
-			console.log("Message Amount: " + Object.keys(msgs).length)
-			if (Object.keys(msgs).length == 0) {
+			console.log("Message Amount: " + msgs.size)
+			if (msgs.size == 0) {
 				done = 1;
 			}
 			if (sub == "multiple") {
@@ -105,7 +105,6 @@ module.exports = {
 						}
 					}
 				}
-				await new Promise(r => setTimeout(r, 1000));
 			}
 			// for (let msg of msgs) {
 			// 	if (sub == "multiple") {
