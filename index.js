@@ -101,6 +101,10 @@ client.on("ready", () => {
 		await db.load();
 		let num = 0;
 		try {
+			await rest.put(
+				Routes.applicationGuildCommands(clientId, guildId),
+				{ body: [] },
+			  )
 			console.log(
 				`Started refreshing ${commands.length} application (/) commands.`
 			);
