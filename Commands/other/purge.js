@@ -85,6 +85,7 @@ module.exports = {
 			);
 			console.log("Remove Amount: " + args.amount)
 			console.log("Message Amount: " + msgs.size)
+			console.log("Last Msg: " + msgs.last().id)
 			if (msgs.size == 0) {
 				done = 1;
 			}
