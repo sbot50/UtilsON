@@ -90,7 +90,7 @@ module.exports = {
 				if (args.amount == 0) {
 					done = 1;
 				} else {
-					msgs = msgs.array();
+					msgs = msgs.toArray();
 					if (msgs.length() > args.amount) {
 						msgs.splice(args.amount - 1);
 					}
