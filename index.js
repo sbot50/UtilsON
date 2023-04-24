@@ -100,11 +100,21 @@ client.on("ready", () => {
 	(async () => {
 		await db.load();
 		let num = 0;
+		client.guilds.cache.forEach((guild) => {
+			if (guild.name != "BladeBotList - Bots") {
+				let guildId = guild.id;
+				(async () => {
+					try {
+						await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+							body: [],
+						});
+					} catch (error) {
+						console.log(error);
+					}
+				})();
+			}
+		});
 		try {
-			await rest.put(
-				Routes.applicationGuildCommands(clientId, guildId),
-				{ body: [] },
-			  )
 			console.log(
 				`Started refreshing ${commands.length} application (/) commands.`
 			);
