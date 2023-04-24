@@ -71,14 +71,12 @@ module.exports = {
 			.setDescription(`Started to purge messages for you!`);
 		await interaction.editReply({ content: " ", embeds: [embed] });
 
-		let msgs = await channel.messages.fetch({ limit: 100 });
-		msgs = msgs.filter(
-			(msg) => msg.interaction == undefined || msg.interaction.id != interaction.id
-		);
 		let err, index, done;
 		let msgcollection = [];
 		while (done != 1) {
-			let msgs = await channel.messages.fetch({ limit: 100 });
+			let purgeamount = args.amount
+			if (args.amount > 100) purgeamount = 100
+			let msgs = await channel.messages.fetch({ limit: purgeamount });
 			msgs = msgs.filter(
 				(msg) =>
 					msg.interaction == undefined || msg.interaction.id != interaction.id
@@ -87,7 +85,7 @@ module.exports = {
 				done = 1;
 			}
 			console.log("Amount: " + args.amount);
-			console.log(JSON.stringify(msgs))
+			console.log(msgs)
 			if (sub == "multiple") {
 				args.amount -= Object.keys(msgs).length;
 				if (msgcollection.length < 2) {
