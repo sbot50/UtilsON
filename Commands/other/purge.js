@@ -33,17 +33,17 @@ module.exports = {
 					option.setName("id").setDescription("The msg ID!").setRequired(true)
 				)
 		),
-		// .addSubcommand((subcommand) =>
-		// 	subcommand
-		// 		.setName("has")
-		// 		.setDescription("Purge msgs with certain content.")
-		// 		.addIntegerOption((option) =>
-		// 			option
-		// 				.setName("content")
-		// 				.setDescription("Content to remove.")
-		// 				.setRequired(true)
-		// 		)
-		// ),
+	// .addSubcommand((subcommand) =>
+	// 	subcommand
+	// 		.setName("has")
+	// 		.setDescription("Purge msgs with certain content.")
+	// 		.addIntegerOption((option) =>
+	// 			option
+	// 				.setName("content")
+	// 				.setDescription("Content to remove.")
+	// 				.setRequired(true)
+	// 		)
+	// ),
 	permissions: ["ManageMessages"],
 	async execute({ client, args, channel, member, interaction }) {
 		if (!member.permissions.has([PermissionsBitField.Flags.Administrator])) {
@@ -75,66 +75,86 @@ module.exports = {
 		msgs = msgs.filter(
 			(msg) => msg.interaction == undefined || msg.interaction.id != interaction.id
 		);
-		let err,index,done;
+		let err, index, done;
 		let msgcollection = [];
 		while (done != 1) {
 			let msgs = await channel.messages.fetch({ limit: 100 });
 			msgs = msgs.filter(
-				(msg) => msg.interaction == undefined || msg.interaction.id != interaction.id
+				(msg) =>
+					msg.interaction == undefined || msg.interaction.id != interaction.id
 			);
 			if (Object.keys(msgs).length == 0) {
-				done = 1
+				done = 1;
 			}
-			for (let msg of msgs) {
-				if (sub == "multiple") {
-					index += 1;
-					msgcollection.push(msg);
-					if (index == 100 || index == args.amount || index == Object.keys(msgs).length) {
-						if (index == args.amount || (index == Object.keys(msgs).length && index != 100)) {
-							done = 1;
-						} else {
-							args.amount -= 100;
-						}
-						index = 0;
-						if (msgcollection.length < 2) {
-							console.log(msgcollection);
-							await channel.bulkDelete(msgcollection);
-						} else {
-							await msg[1].delete();
-						}
-						let msgcollection = [];
-					}
-				} else if (sub == "all") {
-					index += 1;
-					msgcollection.push(msg);
-					if (index == 100 || (index == Object.keys(msgs).length && index != 100)) {
-						index = 0;
-						if (msgcollection.length < 2) {
-							await channel.bulkDelete(msgcollection);
-						} else {
-							await msg[1].delete();
-						}
-						let msgcollection = [];
-					}
-				} else if (sub == "until") {
-					index += 1;
-					msgcollection.push(msg);
-					if (index == 100 || msg.id == args.id) {
-						if (msg.id == args.id) {
-							done = 1;
-						}
-						index = 0;
-						if (msgcollection.length < 2) {
-							await channel.bulkDelete(msgcollection);
-						} else {
-							await msg[1].delete();
-						}
-						let msgcollection = [];
-					}
-				} else if (sub == "has") {
+			if (sub == "multiple") {
+				if (args.amount == 0) {
 					done = 1;
+				} else {
+					msgs = msgs.array();
+					if (msgs.length() > args.amount) {
+						msgs.splice(args.amount - 1);
+					}
+					args.amount -= msgs.length();
+					console.log(msgs);
+					try {
+						await channel.bulkDelete(msgs);
+					} catch {
+						for (let msg of msgs) {
+							await msg.delete();
+						}
+					}
 				}
 			}
+			// for (let msg of msgs) {
+			// 	if (sub == "multiple") {
+			// 		index += 1;
+			// 		msgcollection.push(msg);
+			// 		if (index == 100 || index == args.amount || index == Object.keys(msgs).length) {
+			// 			if (index == args.amount || (index == Object.keys(msgs).length && index != 100)) {
+			// 				done = 1;
+			// 			} else {
+			// 				args.amount -= 100;
+			// 			}
+			// 			index = 0;
+			// 			if (msgcollection.length < 2) {
+			// 				console.log(msgcollection);
+			// 				await channel.bulkDelete(msgcollection);
+			// 			} else {
+			// 				await msg[1].delete();
+			// 			}
+			// 			let msgcollection = [];
+			// 		}
+			// 	} else if (sub == "all") {
+			// 		index += 1;
+			// 		msgcollection.push(msg);
+			// 		if (index == 100 || (index == Object.keys(msgs).length && index != 100)) {
+			// 			index = 0;
+			// 			if (msgcollection.length < 2) {
+			// 				await channel.bulkDelete(msgcollection);
+			// 			} else {
+			// 				await msg[1].delete();
+			// 			}
+			// 			let msgcollection = [];
+			// 		}
+			// 	} else if (sub == "until") {
+			// 		index += 1;
+			// 		msgcollection.push(msg);
+			// 		if (index == 100 || msg.id == args.id) {
+			// 			if (msg.id == args.id) {
+			// 				done = 1;
+			// 			}
+			// 			index = 0;
+			// 			if (msgcollection.length < 2) {
+			// 				await channel.bulkDelete(msgcollection);
+			// 			} else {
+			// 				await msg[1].delete();
+			// 			}
+			// 			let msgcollection = [];
+			// 		}
+			// 	} else if (sub == "has") {
+			// 		done = 1;
+			// 	}
+			// }
 		}
 		embed = new EmbedBuilder()
 			.setColor(0x1cd0ce)
