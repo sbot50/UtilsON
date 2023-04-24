@@ -33,17 +33,17 @@ module.exports = {
 					option.setName("id").setDescription("The msg ID!").setRequired(true)
 				)
 		),
-		// .addSubcommand((subcommand) =>
-		// 	subcommand
-		// 		.setName("has")
-		// 		.setDescription("Purge msgs with certain content.")
-		// 		.addIntegerOption((option) =>
-		// 			option
-		// 				.setName("content")
-		// 				.setDescription("Content to remove.")
-		// 				.setRequired(true)
-		// 		)
-		// ),
+	// .addSubcommand((subcommand) =>
+	// 	subcommand
+	// 		.setName("has")
+	// 		.setDescription("Purge msgs with certain content.")
+	// 		.addIntegerOption((option) =>
+	// 			option
+	// 				.setName("content")
+	// 				.setDescription("Content to remove.")
+	// 				.setRequired(true)
+	// 		)
+	// ),
 	permissions: ["ManageMessages"],
 	async execute({ client, args, channel, member, interaction }) {
 		if (!member.permissions.has([PermissionsBitField.Flags.Administrator])) {
@@ -75,24 +75,39 @@ module.exports = {
 		msgs = msgs.filter(
 			(msg) => msg.interaction == undefined || msg.interaction.id != interaction.id
 		);
-		console.log(typeof msgs)
-		let err,index,done;
+		console.log(typeof msgs);
+		let err, index, done;
 		let msgcollection = [];
 		while (done != 1) {
 			let msgs = await channel.messages.fetch({ limit: 100 });
 			msgs = msgs.filter(
-				(msg) => msg.interaction == undefined || msg.interaction.id != interaction.id
+				(msg) =>
+					msg.interaction == undefined || msg.interaction.id != interaction.id
 			);
 			if (Object.keys(msgs).length == 0) {
-				done = 1
+				done = 1;
 			}
 			for (let msg of msgs) {
 				if (sub == "multiple") {
 					index += 1;
 					msgcollection.append(msg);
-					console.log(index,args.amount,msgcollection)
-					if (index == 100 || index == args.amount || index == Object.keys(msgs).length) {
-						if (index == args.amount || (index == Object.keys(msgs).length && index != 100)) {
+					console.log(
+						"Index: " +
+							index +
+							"\nArgs Amount: " +
+							args.amount +
+							"\nMsgs: " +
+							JSON.stringify(msgcollection)
+					);
+					if (
+						index == 100 ||
+						index == args.amount ||
+						index == Object.keys(msgs).length
+					) {
+						if (
+							index == args.amount ||
+							(index == Object.keys(msgs).length && index != 100)
+						) {
 							done = 1;
 						} else {
 							args.amount -= 100;
