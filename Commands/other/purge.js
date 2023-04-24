@@ -91,10 +91,10 @@ module.exports = {
 					done = 1;
 				} else {
 					msgs = msgs.toArray();
-					if (msgs.length() > args.amount) {
+					if (msgs.length > args.amount) {
 						msgs.splice(args.amount - 1);
 					}
-					args.amount -= msgs.length();
+					args.amount -= msgs.length;
 					console.log(msgs);
 					try {
 						await channel.bulkDelete(msgs);
