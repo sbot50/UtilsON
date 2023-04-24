@@ -100,11 +100,14 @@ client.login(token).catch((err) => {
 client.on("ready", () => {
 	console.log("Logged in as " + client.user.tag + "!");
 	client.user.setActivity("with utilities!", { type: 0 });
+	let devcmds = [];
 	for (let folder of commandFiles) {
 		for (let file of fs.readdirSync("./Commands/" + folder)) {
 			let command = require(`./Commands/${folder}/${file}`);
-			if (command.data != undefined) {
+			if (command.data != undefined && command.devcmd != true) {
 				commands.push(command.data.toJSON());
+			} else if (command.data != undefined && command.devcmd == true) {
+				devcmds.push(command.data.toJSON())
 			}
 		}
 	}
@@ -113,7 +116,7 @@ client.on("ready", () => {
 		let num = 0;
 		try {
 			console.log(
-				`Started refreshing ${commands.length} application (/) commands.`
+				`Started refreshing ${commands.length} global application (/) commands.`
 			);
 
 			let cmds = await rest.put(Routes.applicationCommands(clientId), {
@@ -121,7 +124,19 @@ client.on("ready", () => {
 			});
 
 			console.log(
-				`Successfully reloaded ${cmds.length} application (/) commands.`
+				`Successfully reloaded ${cmds.length} global application (/) commands.`
+			);
+
+			console.log(
+				`Started refreshing ${devcmds.length} guild application (/) commands.`
+			);
+
+			cmds = await rest.put(Routes.applicationGuildCommands(clientId, "1094596918308511876"), {
+				body: devcmds,
+			});
+
+			console.log(
+				`Successfully reloaded ${cmds.length} guild application (/) commands.`
 			);
 		} catch (error) {
 			console.log(error);
