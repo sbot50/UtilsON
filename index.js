@@ -34,7 +34,7 @@ var stringConstructor = "test".constructor;
 var arrayConstructor = [].constructor;
 var objectConstructor = {}.constructor;
 
-async function checkperms(interaction, needed) {
+async function checkperms(interaction, needed, deferred) {
 	let guild = await client.guilds.cache.get(interaction.guildId);
 	let channel = await guild.channels.cache.get(interaction.channelId);
 	let perms = await guild.members.me.permissionsIn(channel).toArray();
@@ -71,11 +71,19 @@ async function checkperms(interaction, needed) {
 					value: missing.join("\n"),
 				},
 			]);
-			await interaction.editReply({
-				content: " ",
-				embeds: [embed],
-				ephemeral: true,
-			});
+			if (deferred) {
+				await interaction.editReply({
+					content: " ",
+					embeds: [embed],
+					ephemeral: true,
+				});
+			} else {
+				await interaction.reply({
+					content: " ",
+					embeds: [embed],
+					ephemeral: true,
+				});
+			}
 			return false;
 		}
 	}
@@ -220,7 +228,7 @@ client.on("interactionCreate", async (interaction) => {
 			if (cmd != undefined) break;
 		}
 		let needed = cmd.permissions;
-		let hasperms = await checkperms(interaction, needed);
+		let hasperms = await checkperms(interaction, needed, deferred=1);
 		if (!hasperms) {
 			return;
 		}
