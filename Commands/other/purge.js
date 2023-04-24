@@ -29,7 +29,7 @@ module.exports = {
 			subcommand
 				.setName("until")
 				.setDescription("Purge until msg ID.")
-				.addIntegerOption((option) =>
+				.addStringOption((option) =>
 					option.setName("id").setDescription("The msg ID!").setRequired(true)
 				)
 		),
@@ -121,7 +121,7 @@ module.exports = {
 				for (msg in msgs) {
 					if (msgs[msg].id == args.id) {
 						done = 1;
-						msgs.splice(msg+1)
+						msgs.splice(msg)
 						break;
 					}
 				}
