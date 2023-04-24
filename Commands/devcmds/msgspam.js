@@ -4,8 +4,8 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("rps")
-    .setDescription("Start a game of rps!"),
+    .setName("msgspam")
+    .setDescription("sends 105 messages"),
   permissions: [],
   devcmd: true,
   async execute({ interaction, channel }) {
