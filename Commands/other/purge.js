@@ -75,7 +75,6 @@ module.exports = {
 		msgs = msgs.filter(
 			(msg) => msg.interaction == undefined || msg.interaction.id != interaction.id
 		);
-		console.log(typeof msgs)
 		let err,index,done;
 		let msgcollection = [];
 		while (done != 1) {
@@ -98,6 +97,7 @@ module.exports = {
 						}
 						index = 0;
 						if (msgcollection.length < 2) {
+							console.log(msgcollection);
 							await channel.bulkDelete(msgcollection);
 						} else {
 							await msg[1].delete();
