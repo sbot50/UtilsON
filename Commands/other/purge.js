@@ -75,7 +75,6 @@ module.exports = {
 		msgs = msgs.filter(
 			(msg) => msg.interaction == undefined || msg.interaction.id != interaction.id
 		);
-		console.log(typeof msgs);
 		let err, index, done;
 		let msgcollection = [];
 		while (done != 1) {
@@ -88,10 +87,15 @@ module.exports = {
 				done = 1;
 			}
 			console.log("Amount: " + args.amount);
+			console.log(JSON.stringify(msgs))
 			if (sub == "multiple") {
 				args.amount -= Object.keys(msgs).length;
 				if (msgcollection.length < 2) {
-					await channel.bulkDelete(msgs);
+					try {
+						await channel.bulkDelete(msgs);
+					} catch (err) {
+						console.log(err);
+					}
 				} else {
 					await msg[0][1].delete();
 				}
