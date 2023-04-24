@@ -98,15 +98,15 @@ module.exports = {
 						msgs.splice(args.amount);
 					}
 					args.amount -= msgs.length;
-					try {
-						await channel.bulkDelete(msgs);
-					} catch {
+					// try {
+					// 	await channel.bulkDelete(msgs);
+					// } catch {
 						for (let msg of msgs) {
 							await msg.delete();
-							await new Promise(r => setTimeout(r, 1000));
+							await new Promise(r => setTimeout(r, 100));
 						}
-					}
-					await new Promise(r => setTimeout(r, 2000));
+					//}
+					//await new Promise(r => setTimeout(r, 2000));
 				}
 			}
 			// for (let msg of msgs) {
