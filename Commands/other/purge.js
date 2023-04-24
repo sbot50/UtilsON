@@ -92,7 +92,7 @@ module.exports = {
 				} else {
 					msgs = Array.from(msgs.values());
 					if (msgs.length > args.amount) {
-						msgs.splice(args.amount - 1);
+						msgs.splice(args.amount);
 					}
 					args.amount -= msgs.length;
 					console.log(msgs);
