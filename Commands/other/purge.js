@@ -18,7 +18,7 @@ module.exports = {
 				.addIntegerOption((option) =>
 					option
 						.setName("amount")
-						.setDescription("The amount of messages to purge! (100 max)")
+						.setDescription("The amount of messages to purge!")
 						.setRequired(true)
 				)
 		)
