@@ -105,7 +105,7 @@ module.exports = {
 							await msg.delete();
 						}
 					}
-					await new Promise(r => setTimeout(r, 10000));
+					await new Promise(r => setTimeout(r, 1000));
 				}
 			}
 			// for (let msg of msgs) {
