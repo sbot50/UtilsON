@@ -99,20 +99,44 @@ module.exports = {
 					}
 					args.amount -= msgs.length;
 					try {
-						//await channel.bulkDelete(msgs);
-						const chunkSize = 50;
-						for (let i = 0; i < msgs.length; i += chunkSize) {
-							const chunk = msgs.slice(i, i + chunkSize);
-							await channel.bulkDelete(chunk);
-						}
+						await channel.bulkDelete(msgs);
 					} catch {
 						for (let msg of msgs) {
 							await msg.delete();
 							await new Promise((r) => setTimeout(r, 1000));
 						}
 					}
-					//await new Promise((r) => setTimeout(r, 4000));
+					await new Promise((r) => setTimeout(r, 4000));
 				}
+			} else if (sub == "all") {
+				msgs = Array.from(msgs.values());
+				try {
+					await channel.bulkDelete(msgs);
+				} catch {
+					for (let msg of msgs) {
+						await msg.delete();
+						await new Promise((r) => setTimeout(r, 1000));
+					}
+				}
+				await new Promise((r) => setTimeout(r, 4000));
+			} else if (sub == "until") {
+				msgs = Array.from(msgs.values());
+				for (msg in msgs) {
+					if (msgs[msg].id == args.id) {
+						done = 1;
+						msgs.splice(msg+1)
+						break;
+					}
+				}
+				try {
+					await channel.bulkDelete(msgs);
+				} catch {
+					for (let msg of msgs) {
+						await msg.delete();
+						await new Promise((r) => setTimeout(r, 1000));
+					}
+				}
+				await new Promise((r) => setTimeout(r, 4000));
 			}
 			// for (let msg of msgs) {
 			// 	if (sub == "multiple") {
