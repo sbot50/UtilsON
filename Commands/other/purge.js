@@ -83,6 +83,8 @@ module.exports = {
 				(msg) =>
 					msg.interaction == undefined || msg.interaction.id != interaction.id
 			);
+			console.log("Remove Amount: " + args.amount)
+			console.log("Message Amount: " + Object.keys(msgs).length)
 			if (Object.keys(msgs).length == 0) {
 				done = 1;
 			}
@@ -95,7 +97,6 @@ module.exports = {
 						msgs.splice(args.amount);
 					}
 					args.amount -= msgs.length;
-					console.log(msgs);
 					try {
 						await channel.bulkDelete(msgs);
 					} catch {
