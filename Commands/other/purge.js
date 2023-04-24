@@ -100,7 +100,7 @@ module.exports = {
 					args.amount -= msgs.length;
 					try {
 						//await channel.bulkDelete(msgs);
-						const chunkSize = 10;
+						const chunkSize = 50;
 						for (let i = 0; i < msgs.length; i += chunkSize) {
 							const chunk = msgs.slice(i, i + chunkSize);
 							await channel.bulkDelete(chunk);
