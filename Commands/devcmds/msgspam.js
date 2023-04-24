@@ -10,7 +10,7 @@ module.exports = {
   devcmd: true,
   async execute({ interaction, channel }) {
     for (let i = 0; i < 105; i++) {
-        channel.sendMessage((i+1)+"")
+        channel.send((i+1)+"")
         await new Promise(r => setTimeout(r, 1000));
     }
     await interaction.editReply({
