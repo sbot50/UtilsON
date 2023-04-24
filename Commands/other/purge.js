@@ -90,7 +90,8 @@ module.exports = {
 				if (sub == "multiple") {
 					index += 1;
 					msgcollection.append(msg);
-					if (index == 100 || index == args.amount || (index == Object.keys(msgs).length && index != 100)) {
+					console.log(index,args.amount,msgcollection)
+					if (index == 100 || index == args.amount || index == Object.keys(msgs).length) {
 						if (index == args.amount || (index == Object.keys(msgs).length && index != 100)) {
 							done = 1;
 						} else {
