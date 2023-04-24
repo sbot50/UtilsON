@@ -106,7 +106,7 @@ module.exports = {
 							await new Promise(r => setTimeout(r, 1000));
 						}
 					}
-					await new Promise(r => setTimeout(r, 1000));
+					await new Promise(r => setTimeout(r, 2000));
 				}
 			}
 			// for (let msg of msgs) {
