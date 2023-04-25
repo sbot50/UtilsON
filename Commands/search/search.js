@@ -21,19 +21,30 @@ function timeout(ms, promise) {
 
 async function addmap(results, query) {
   let promises = [];
+  let valid,invalid = 0;
+  console.log("Checking validity...")
   for (let r of results) {
     try {
       let p = timeout(3000, got(r.url));
       promises.push(p);
-    } catch {}
+      valid += 1;
+    } catch {
+      invalid += 1;
+    }
+    console.log("Valid: " + valid + "\nInvalid: " + invalid + "Total: " + results.length)
   }
+  console.log("Validity Checked!")
+  console.log("Awaiting promises...")
   results = await Promise.allSettled(promises);
+  console.log("Got promises!")
   let reslist = [];
+  console.log("Pushing to map...")
   for (let r of results) {
     if (r.status == "fulfilled" && r.value != undefined && r.value.statusCode == 200) {
       reslist.push(r.value.url);
     }
   }
+  console.log("Mapped!")
   cache.set(query, reslist);
 }
 
@@ -120,6 +131,7 @@ module.exports = {
       return;
     }
     let results,error;
+    console.log("Getting Images...")
     try {
       results = await gis(args.searchquery)
     } catch {
@@ -146,7 +158,8 @@ module.exports = {
         });
       return;
     }
-
+    console.log("Got Images!")
+    console.log("Getting First valid...")
     let firstres;
     let amount = skips;
     for (let r of results) {
@@ -176,6 +189,7 @@ module.exports = {
         }
       }
     }
+    console.log("Gotten first image...")
     addmap(results, args.searchquery);
     let row = new ActionRowBuilder()
       .addComponents(
