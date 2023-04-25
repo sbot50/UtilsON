@@ -17,6 +17,9 @@ module.exports = {
     let lastmsg = lastmsgs.first();
     let version = /v\d+\.\d+\.\d+/.exec(lastmsg.content)[0];
     let date = /\d+\/\d+\/\d+/.exec(lastmsg.content)[0];
+    if (lastmsg.content.length > 1014) {
+      lastmsg = lastmsg.substr(0,1011) + "..."
+    }
     let embed = new EmbedBuilder()
       .setColor(0x1cd0ce)
       .addFields([
