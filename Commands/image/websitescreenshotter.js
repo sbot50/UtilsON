@@ -30,6 +30,23 @@ module.exports = {
     } catch {
       err = 1
     }
+    let buffer; 
+    try {
+      buffer = await got
+      .post("https://chrome.browserless.io/screenshot", {
+        headers: { "User-Agent": "TotallyMozilla" },
+        json: {
+          url: args.link,
+          options: {
+            fullPage: true,
+            type: "png",
+          },
+        },
+      })
+      .buffer();
+    } catch {
+      err = 1;
+    }
     if (err == 1) {
       let embed = new EmbedBuilder()
         .setColor(0xa31600)
@@ -50,18 +67,6 @@ module.exports = {
         });
       return;
     }
-    let buffer = await got
-      .post("https://chrome.browserless.io/screenshot", {
-        headers: { "User-Agent": "TotallyMozilla" },
-        json: {
-          url: args.link,
-          options: {
-            fullPage: true,
-            type: "png",
-          },
-        },
-      })
-      .buffer();
     let screenshot = new AttachmentBuilder(buffer, { name: "SCREENSHOT.png" });
     let embed = new EmbedBuilder()
       .setColor(0x1cd0ce)
