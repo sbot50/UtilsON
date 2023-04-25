@@ -14,13 +14,13 @@ module.exports = {
     ),
   permissions: [],
   async execute({ args, interaction }) {
-    if (args.text.length > 1024) {
+    if (args.text.length > 512) {
       let embed = new EmbedBuilder()
         .setColor(0xa31600)
         .addFields([
           {
             name: "**ERROR**",
-            value: "Maximum text length of 1024 characters!",
+            value: "Maximum text length of 512 characters!",
           },
         ])
         .setFooter({ text: "Used NPM: 'dogeify-js'" });
