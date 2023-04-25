@@ -19,6 +19,8 @@ module.exports = {
     let date = /\d+\/\d+\/\d+/.exec(lastmsg.content)[0];
     if (lastmsg.content.length > 1014) {
       lastmsg = lastmsg.content.substr(0,1011) + "..."
+    } else {
+      lastmsg = lastmsg.content
     }
     let embed = new EmbedBuilder()
       .setColor(0x1cd0ce)
@@ -68,7 +70,7 @@ module.exports = {
       .addFields([
         {
           name: "**Latest Update Log**",
-          value: "```\n" + lastmsg.content + "\n```",
+          value: "```\n" + lastmsg + "\n```",
         },
       ]);
     await interaction.editReply({ content: " ", embeds: [embed] });
