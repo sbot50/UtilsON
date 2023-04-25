@@ -212,7 +212,7 @@ module.exports = {
         }
       }
       embed.setImage(
-        "https://hf.space/embed/CodeON/Text-To-Image/+/?text=" +
+        "https://sbot50.alwaysdata.net/?text=" +
           encodeURIComponent(motd) +
           "&rng=" +
           Date.now()

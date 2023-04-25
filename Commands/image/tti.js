@@ -21,7 +21,7 @@ module.exports = {
     let text = args.text;
     if (text.length <= 500 && text.includes("your mom") == false) {
       let buff = await got(
-        "https://hf.space/embed/CodeON/Text-To-Image/+/?text=" +
+        "https://sbot50.alwaysdata.net/?text=" +
           encodeURIComponent(text) +
           "&rng=" +
           Date.now()
