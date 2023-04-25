@@ -22,8 +22,10 @@ function timeout(ms, promise) {
 async function addmap(results, query) {
   let promises = [];
   for (let r of results) {
-    let p = timeout(3000, got(r.url));
-    promises.push(p);
+    try {
+      let p = timeout(3000, got(r.url));
+      promises.push(p);
+    } catch {}
   }
   results = await Promise.allSettled(promises);
   let reslist = [];
@@ -119,10 +121,7 @@ module.exports = {
     }
     let results,error;
     try {
-      console.log("getting images...")
       results = await gis(args.searchquery)
-      console.log("got images!")
-      console.log(results)
     } catch {
       error = 1
     }
