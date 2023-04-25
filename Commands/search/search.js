@@ -118,13 +118,14 @@ module.exports = {
       return;
     }
     let results,error;
-    console.log("getting images...")
     try {
+      console.log("getting images...")
       results = await gis(args.searchquery)
+      console.log("got images!")
+      console.log(results)
     } catch {
       error = 1
     }
-    console.log("got images!")
     if (error || results.length == 0) {
       let embed = new EmbedBuilder()
         .setColor(0xa31600)
