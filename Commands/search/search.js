@@ -3,7 +3,7 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const Discord = require("discord.js");
 const https = require("https");
 const got = require("got");
-const gis = require("g-i-s");
+const gis = require('async-g-i-s');
 let cache = new Map();
 
 const agent = new https.Agent({
@@ -117,9 +117,12 @@ module.exports = {
       });
       return;
     }
-    let [error, results] = await new Promise((r) =>
-      gis(args.searchquery, (...d) => r(d))
-    );
+    let results,error;
+    try {
+      results = await gis(args.searchquery)
+    } catch {
+      error = 1
+    }
 
     if (error || results.length == 0) {
       let embed = new EmbedBuilder()

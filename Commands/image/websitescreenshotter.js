@@ -2,6 +2,15 @@ const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discor
 const Discord = require("discord.js");
 const got = require("got");
 
+function timeout(ms, promise) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      reject(new Error("timeout"));
+    }, ms);
+    promise.then(resolve, reject);
+  });
+}
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("websitescreenshotter")
@@ -16,7 +25,11 @@ module.exports = {
   async execute({ client, args, interaction }) {
     let link = args.link;
     let err = 0;
-    await got(link).catch(() => (err = 1));
+    try {
+      await timeout(3000, got(link));
+    } catch {
+      err = 1
+    }
     if (err == 1) {
       let embed = new EmbedBuilder()
         .setColor(0xa31600)

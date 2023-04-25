@@ -21,7 +21,28 @@ module.exports = {
         .addFields([
           {
             name: "**ERROR**",
-            value: "Couldn't convert morse to text!",
+            value: "Couldn't convert text to morse!",
+          },
+        ])
+        .setFooter({ text: "Used NPM: 'morse-code-converter'" });
+      await interaction
+        .editReply({ content: " ", embeds: [embed], ephemeral: true })
+        .then((message) => {
+          setTimeout(function () {
+            try {
+              message.delete();
+            } catch {}
+          }, 5000);
+        });
+      return;
+    }
+    if (args.text.length > 250) {
+      let embed = new EmbedBuilder()
+        .setColor(0xa31600)
+        .addFields([
+          {
+            name: "**ERROR**",
+            value: "Maximum text length of 250 characters!",
           },
         ])
         .setFooter({ text: "Used NPM: 'morse-code-converter'" });

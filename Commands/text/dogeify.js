@@ -14,6 +14,27 @@ module.exports = {
     ),
   permissions: [],
   async execute({ args, interaction }) {
+    if (args.text.length > 1024) {
+      let embed = new EmbedBuilder()
+        .setColor(0xa31600)
+        .addFields([
+          {
+            name: "**ERROR**",
+            value: "Maximum text length of 1024 characters!",
+          },
+        ])
+        .setFooter({ text: "Used NPM: 'dogeify-js'" });
+      await interaction
+        .editReply({ content: " ", embeds: [embed], ephemeral: true })
+        .then((message) => {
+          setTimeout(function () {
+            try {
+              message.delete();
+            } catch {}
+          }, 5000);
+        });
+      return;
+    }
     let out = await dogeify(args.text);
     let embed = new EmbedBuilder()
       .setColor(0x1cd0ce)

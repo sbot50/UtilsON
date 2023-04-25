@@ -24,7 +24,7 @@
     "express": "latest",
     "fast-levenshtein": "latest",
     "form-data": "latest",
-    "g-i-s": "latest",
+    "async-g-i-s": "latest",
     "geckodriver": "latest",
     "giphy-api": "latest",
     "google-tts-api": "latest",

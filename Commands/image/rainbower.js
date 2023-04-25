@@ -54,7 +54,10 @@ module.exports = {
     if (link.endsWith(".webp")) {
       link = link.replace(".webp", ".gif");
       try {
-        let res = await timeout(3000, got(link));
+        let res;
+        try {
+          res = await timeout(3000, got(link));
+        } catch {}
         if (res != undefined && res.ok) {
           throw "Error";
         }
@@ -62,7 +65,11 @@ module.exports = {
         link = link.replace(".gif", ".png");
       }
     }
-    await timeout(3000, got(link)).catch(() => (err = 1));
+    try {
+      await timeout(3000, got(link)).catch(() => (err = 1));
+    } catch {
+      err = 1
+    }
     if (err == 1) {
       let embed = new EmbedBuilder()
         .setColor(0xa31600)
@@ -106,8 +113,9 @@ module.exports = {
         });
       return;
     }
-    let pfp = await timeout(3000, got(link).buffer());
+    let pfp;
     try {
+      pfp = await timeout(3000, got(link).buffer());
       pfp = await is.decode(pfp);
     } catch (error) {
       err = 1;

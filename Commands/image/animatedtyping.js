@@ -29,7 +29,7 @@ module.exports = {
       promises.push(
         (async () => {
           let img = await got(
-            "https://hf.space/embed/CodeON/Text-To-Image/+/?text=" +
+            "https://sbot50.alwaysdata.net/?text=" +
               encodeURIComponent(string) +
               "&rng=" +
               Date.now()
