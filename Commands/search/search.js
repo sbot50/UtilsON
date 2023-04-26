@@ -21,29 +21,28 @@ function timeout(ms, promise) {
 
 async function addmap(results, query) {
   let promises = [];
-  let valid,invalid = 0;
+  let valid = 0
+  let invalid = 0;
   console.log("Checking validity...")
   for (let r of results) {
     try {
       let p = timeout(3000, got(r.url));
       promises.push(p);
-      valid += 1;
-    } catch {
-      invalid += 1;
-    }
-    console.log("Valid: " + valid + "\nInvalid: " + invalid + "Total: " + results.length)
+    } catch {}
   }
-  console.log("Validity Checked!")
-  console.log("Awaiting promises...")
   results = await Promise.allSettled(promises);
-  console.log("Got promises!")
+  console.log("Validity Checked!")
   let reslist = [];
   console.log("Pushing to map...")
   for (let r of results) {
     if (r.status == "fulfilled" && r.value != undefined && r.value.statusCode == 200) {
       reslist.push(r.value.url);
+      valid += 1;
+    } else {
+      invalid += 1;
     }
   }
+  console.log("Valid: " + valid + "\nInvalid: " + invalid + "\nTotal: " + results.length)
   console.log("Mapped!")
   cache.set(query, reslist);
 }
@@ -190,7 +189,7 @@ module.exports = {
       }
     }
     console.log("Gotten first image...")
-    addmap(results, args.searchquery);
+    await addmap(results, args.searchquery);
     let row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
