@@ -19,33 +19,33 @@ function timeout(ms, promise) {
   });
 }
 
-async function addmap(results, query) {
-  let promises = [];
-  let valid = 0
-  let invalid = 0;
-  console.log("Checking validity...")
-  for (let r of results) {
-    try {
-      let p = timeout(3000, got(r.url));
-      promises.push(p);
-    } catch {}
-  }
-  results = await Promise.allSettled(promises);
-  console.log("Validity Checked!")
-  let reslist = [];
-  console.log("Pushing to map...")
-  for (let r of results) {
-    if (r.status == "fulfilled" && r.value != undefined && r.value.statusCode == 200) {
-      reslist.push(r.value.url);
-      valid += 1;
-    } else {
-      invalid += 1;
-    }
-  }
-  console.log("Valid: " + valid + "\nInvalid: " + invalid + "\nTotal: " + results.length)
-  console.log("Mapped!")
-  cache.set(query, reslist);
-}
+// async function addmap(results, query) {
+//   let promises = [];
+//   let valid = 0
+//   let invalid = 0;
+//   console.log("Checking validity...")
+//   for (let r of results) {
+//     try {
+//       let p = timeout(3000, got(r.url));
+//       promises.push(p);
+//     } catch {}
+//   }
+//   results = await Promise.allSettled(promises);
+//   console.log("Validity Checked!")
+//   let reslist = [];
+//   console.log("Pushing to map...")
+//   for (let r of results) {
+//     if (r.status == "fulfilled" && r.value != undefined && r.value.statusCode == 200) {
+//       reslist.push(r.value.url);
+//       valid += 1;
+//     } else {
+//       invalid += 1;
+//     }
+//   }
+//   console.log("Valid: " + valid + "\nInvalid: " + invalid + "\nTotal: " + results.length)
+//   console.log("Mapped!")
+//   cache.set(query, reslist);
+// }
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -79,7 +79,20 @@ module.exports = {
     }
     if (cache.has(args.searchquery)) {
       let cached = cache.get(args.searchquery);
-      if (skips > cached.length - 1) {
+      let res,success,index = skips;
+      while (index < cached.length - 1) {
+        let url = cached[i].url
+        try {
+          res = await timeout(5000, got(url));
+        } catch {}
+        if (res) {
+          res = url;
+          break;
+        } else {
+          delete cached[i]
+        }
+      }
+      if (skips > cached.length - 1 || !res) {
         let oldmsg = interaction.message.embeds[0];
         await interaction.editReply({ content: " ", embeds: [oldmsg] });
         let embed = new EmbedBuilder()
@@ -98,7 +111,6 @@ module.exports = {
           });
         return;
       }
-      let res = cached[skips];
       let row = new ActionRowBuilder()
         .addComponents(
           new ButtonBuilder()
@@ -190,7 +202,8 @@ module.exports = {
       }
     }
     console.log("Gotten first image...")
-    await addmap(results, args.searchquery);
+    //await addmap(results, args.searchquery);
+    cache.set(query, results);
     let row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
