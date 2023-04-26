@@ -83,7 +83,13 @@ module.exports = {
       console.log(skips, index)
       console.log(cached.length)
       while (index < cached.length - 1) {
-        let url = cached[index].url
+        let url;
+        try {
+          url = cached[index].url
+        } catch {
+          delete cached[index]
+          continue;
+        }
         console.log(url)
         try {
           res = await timeout(5000, got(url));
@@ -173,7 +179,6 @@ module.exports = {
         });
       return;
     }
-    results.splice(11)
     console.log("Got Images!")
     console.log("Getting First valid...")
     let firstres;
