@@ -81,7 +81,7 @@ module.exports = {
       let cached = cache.get(args.searchquery);
       let res,index = skips;
       while (index < cached.length - 1) {
-        let url = cached[i].url
+        let url = cached[index].url
         try {
           res = await timeout(5000, got(url));
         } catch {}
