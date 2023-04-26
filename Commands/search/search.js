@@ -60,8 +60,8 @@ module.exports = {
   permissions: ["EmbedLinks"],
   async execute({ args, skips, interaction, button }) {
     if (button == undefined) button = false;
+    let components = interaction.message.components;
     if (button) {
-      let components = interaction.message.components;
       for (component in components[0].components) {
         comp = components[0].components[component];
         comp = ButtonBuilder.from(comp).setDisabled(true);
@@ -98,7 +98,7 @@ module.exports = {
       }
       if (skips > cached.length - 1 || !res) {
         let oldmsg = interaction.message.embeds[0];
-        await interaction.editReply({ content: " ", embeds: [oldmsg] });
+        await interaction.editReply({ content: " ", embeds: [oldmsg], components: components });
         let embed = new EmbedBuilder()
           .addFields([
             { name: "**ERROR**", value: "Max image fetch limit reached!" },
