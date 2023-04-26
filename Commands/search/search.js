@@ -80,11 +80,15 @@ module.exports = {
     if (cache.has(args.searchquery)) {
       let cached = cache.get(args.searchquery);
       let res,index = skips;
+      console.log(skips, index)
+      console.log(cached.length)
       while (index < cached.length - 1) {
         let url = cached[index].url
+        console.log(r.url)
         try {
           res = await timeout(5000, got(url));
         } catch {}
+        console.log(res ? "valid" : "invalid")
         if (res) {
           res = url;
           break;
