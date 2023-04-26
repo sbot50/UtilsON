@@ -89,7 +89,7 @@ module.exports = {
           res = url;
           break;
         } else {
-          delete cached[i]
+          delete cached[index]
         }
       }
       if (skips > cached.length - 1 || !res) {
