@@ -84,7 +84,7 @@ module.exports = {
       console.log(cached.length)
       while (index < cached.length - 1) {
         let url = cached[index].url
-        console.log(r.url)
+        console.log(url)
         try {
           res = await timeout(5000, got(url));
         } catch {}
