@@ -79,7 +79,7 @@ module.exports = {
     }
     if (cache.has(args.searchquery)) {
       let cached = cache.get(args.searchquery);
-      let res,success,index = skips;
+      let res,index = skips;
       while (index < cached.length - 1) {
         let url = cached[i].url
         try {
@@ -203,7 +203,7 @@ module.exports = {
     }
     console.log("Gotten first image...")
     //await addmap(results, args.searchquery);
-    cache.set(query, results);
+    cache.set(args.searchquery, results);
     let row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
