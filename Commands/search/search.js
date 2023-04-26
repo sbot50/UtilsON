@@ -157,6 +157,7 @@ module.exports = {
         });
       return;
     }
+    results.splice(11)
     console.log("Got Images!")
     console.log("Getting First valid...")
     let firstres;
