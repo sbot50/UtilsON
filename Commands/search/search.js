@@ -60,8 +60,21 @@ module.exports = {
   permissions: ["EmbedLinks"],
   async execute({ args, skips, interaction, button }) {
     if (button == undefined) button = false;
-    let components = interaction.message.components;
+    let components = new ActionRowBuilder()
+    .addComponents(
+      new ButtonBuilder()
+        .setCustomId("previous")
+        .setLabel("Previous")
+        .setStyle(ButtonStyle.Danger)
+    )
+    .addComponents(
+      new ButtonBuilder()
+        .setCustomId("next")
+        .setLabel("Next")
+        .setStyle(ButtonStyle.Success)
+    );
     if (button) {
+      let components = interaction.message.components;
       for (component in components[0].components) {
         comp = components[0].components[component];
         comp = ButtonBuilder.from(comp).setDisabled(true);
@@ -104,7 +117,7 @@ module.exports = {
       }
       if (skips > cached.length - 1 || !res) {
         let oldmsg = interaction.message.embeds[0];
-        await interaction.editReply({ content: " ", embeds: [oldmsg], components: components });
+        await interaction.editReply({ content: " ", embeds: [oldmsg], components: [components] });
         let embed = new EmbedBuilder()
           .addFields([
             { name: "**ERROR**", value: "Max image fetch limit reached!" },
@@ -121,19 +134,6 @@ module.exports = {
           });
         return;
       }
-      let row = new ActionRowBuilder()
-        .addComponents(
-          new ButtonBuilder()
-            .setCustomId("previous")
-            .setLabel("Previous")
-            .setStyle(ButtonStyle.Danger)
-        )
-        .addComponents(
-          new ButtonBuilder()
-            .setCustomId("next")
-            .setLabel("Next")
-            .setStyle(ButtonStyle.Success)
-        );
       let embed = new EmbedBuilder()
         .setColor(0x1cd0ce)
         .addFields([
@@ -147,7 +147,7 @@ module.exports = {
       await interaction.editReply({
         content: " ",
         embeds: [embed],
-        components: [row],
+        components: [components],
       });
       return;
     }
@@ -213,19 +213,6 @@ module.exports = {
     console.log("Gotten first image...")
     //await addmap(results, args.searchquery);
     cache.set(args.searchquery, results);
-    let row = new ActionRowBuilder()
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId("previous")
-          .setLabel("Previous")
-          .setStyle(ButtonStyle.Danger)
-      )
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId("next")
-          .setLabel("Next")
-          .setStyle(ButtonStyle.Success)
-      );
     let embed = new EmbedBuilder()
       .setColor(0x1cd0ce)
       .addFields([
@@ -239,7 +226,7 @@ module.exports = {
     await interaction.editReply({
       content: " ",
       embeds: [embed],
-      components: [row],
+      components: [components],
     });
   },
   isCached(query) {
