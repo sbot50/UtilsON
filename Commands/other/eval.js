@@ -30,6 +30,20 @@ module.exports = {
 		if (!args.language || !languages.includes(args.language)) {
 			args.language = "javascript-node";
 		}
+    let modal = new ModalBuilder()
+      .setCustomId("eval")
+      .setTitle("Language: " + args.language);
+
+    let code = new TextInputBuilder()
+      .setCustomId("code")
+      .setLabel("Code to eval.")
+      .setStyle(TextInputStyle.Paragraph)
+      .setRequired(true);
+    code = new ActionRowBuilder().addComponents(code);
+
+    modal.addComponents(code);
+    interaction.showModal(modal);
+    return;
     let languagename = args.language.split("-")[0]
 		let res = await tio.evaluate(
 			{
