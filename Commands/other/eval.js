@@ -83,6 +83,7 @@ module.exports = {
 	},
 	async autocomplete({ interaction }) {
 		let focusedValue = interaction.options.getFocused();
+    console.log(languages)
 		let filtered = languages.filter((lang) => lang.startsWith(focusedValue));
 		filtered = filtered
 			.map((lang) => ({ name: lang, dist: levenshtein(lang, focusedValue) }))
