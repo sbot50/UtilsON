@@ -10,7 +10,6 @@ const {
 const Discord = require("discord.js");
 
 module.exports = {
-  dontDefer: true,
   async submit({ client, args, interaction }) {
     let title = interaction.fields.getTextInputValue("title");
     let hex = interaction.fields.getTextInputValue("hex");

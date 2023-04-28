@@ -327,7 +327,6 @@ client.on("interactionCreate", async (interaction) => {
 			});
 		}
 	} else if (interaction.type == 5) {
-		await interaction.deferUpdate();
 		let cmd;
 		if (interaction.message != null && interaction.message.interaction != null) {
 			cmd = interaction.message.interaction.commandName;
@@ -336,6 +335,9 @@ client.on("interactionCreate", async (interaction) => {
 		}
 		let modal = interaction.customId.replace(/\d+/g, "");
 		modal = require(`./Modals/${cmd}/${modal}.js`);
+		if (!modal.dontDefer) {
+			await interaction.deferUpdate();
+		}
 		try {
 			await modal.submit({ client, guild, channel, member, interaction, db });
 		} catch (error) {
