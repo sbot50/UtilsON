@@ -50,8 +50,8 @@ module.exports = {
 		interaction.showModal(modal);
 	},
 	async autocomplete({ interaction }) {
-		let focusedValue = interaction.options.getFocused();
-		let filtered = Object.keys(languages).filter((lang) => lang.startsWith(focusedValue) || lang.includes(focusedValue));
+		let focusedValue = interaction.options.getFocused().toLowerCase()
+		let filtered = Object.keys(languages).filter((lang) => lang.toLowerCase().startsWith(focusedValue) || lang.toLowerCase().includes(focusedValue));
 		filtered = filtered
 			.map((lang) => ({ name: lang, dist: levenshtein(lang, focusedValue) }))
 			.sort((a, b) => a.dist - b.dist)
