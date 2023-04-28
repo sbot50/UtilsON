@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require("discord.js");
 const Discord = require("discord.js");
 const tio = require("tryitonline");
 const levenshtein = require("fast-levenshtein").get;
@@ -12,12 +12,6 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("eval")
 		.setDescription("Eval command for Bot Devs!")
-		.addStringOption((option) =>
-			option
-				.setName("code")
-				.setDescription("Code to eval. use \\n for newline.")
-				.setRequired(true)
-		)
 		.addStringOption((option) =>
 			option
 				.setName("language")
