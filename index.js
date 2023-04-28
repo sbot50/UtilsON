@@ -238,7 +238,6 @@ client.on("interactionCreate", async (interaction) => {
 	let member = await guild.members.fetch(interaction.member.user.id);
 	let cmd;
 	if (interaction.type == 2) {
-		await interaction.deferReply();
 		let argslist = await interaction.options._hoistedOptions;
 		let args = {};
 		for (let arg of argslist) {
@@ -253,6 +252,9 @@ client.on("interactionCreate", async (interaction) => {
 				}
 			}
 			if (cmd != undefined) break;
+		}
+		if (!cmd.dontDefer) {
+			await interaction.deferReply();
 		}
 		let needed = cmd.permissions;
 		let hasperms = await checkperms(interaction, needed, (deferred = 1));
