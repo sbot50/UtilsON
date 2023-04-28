@@ -24,20 +24,22 @@ module.exports = {
 		.addStringOption((option) =>
 			option
 				.setName("language")
-				.setDescription("Coding language to use. (default is javascript-node)")
+				.setDescription("Coding language to use. default = JavaScript (Node.js)")
 				.setAutocomplete(true)
 		),
 	permissions: [],
 	dontDefer: true,
 	async execute({ client, args, guild, channel, member, interaction }) {
 		if (!args.language || !Object.keys(languages).includes(args.language)) {
+			fullname = "JavaScript (Node.js)"
 			args.language = "javascript-node";
 		} else {
+			fullname = args.language
 			args.language = languages[args.language]
 		}
 		let modal = new ModalBuilder()
 			.setCustomId("eval")
-			.setTitle("Language: " + args.language);
+			.setTitle(fullname);
 
 		let code = new TextInputBuilder()
 			.setCustomId(args.language)
