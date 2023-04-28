@@ -6,7 +6,6 @@ const {
 	TextInputBuilder,
 	TextInputStyle,
 } = require("discord.js");
-const Discord = require("discord.js");
 const tio = require("tryitonline");
 const levenshtein = require("fast-levenshtein").get;
 let languages;
@@ -18,7 +17,7 @@ let languages;
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("eval")
-		.setDescription("Eval command for Bot Devs!")
+		.setDescription("Eval code for any language!")
 		.addStringOption((option) =>
 			option
 				.setName("language")
