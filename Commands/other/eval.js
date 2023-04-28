@@ -45,6 +45,10 @@ module.exports = {
 				.setFooter({ text: "Used NPM: 'tryitonline'" });
 			await interaction.editReply({ content: " ", embeds: [embed] });
 		}
+    console.log("Code length: " + args.code.length);
+    console.log("Output length: " + res.output.length);
+    console.log("Warnings length: " + res.warnings.length);
+    console.log("Debug length: " + res.debug.length);
 		if (args.code.length > 1014 - languagename.length) args.code = args.code.substr(1011 - languagename.length) + "...";
 		if (res.output.length > 1014) res.output = res.output.substr(1011) + "...";
 		if (res.warnings.length > 1014) res.warnings = res.warnings.substr(1011) + "...";
