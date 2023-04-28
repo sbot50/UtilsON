@@ -21,7 +21,7 @@ module.exports = {
 		),
 	permissions: [],
 	async execute({ client, args, guild, channel, member, interaction }) {
-		let code = args.code.replace(/\\n/g, "\n");
+		args.code = args.code.replace(/\\n/g, "\n");
 		if (!args.language) {
 			args.language = "javascript-node";
 		}
