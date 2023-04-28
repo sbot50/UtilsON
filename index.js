@@ -343,6 +343,23 @@ client.on("interactionCreate", async (interaction) => {
 				ephemeral: true,
 			});
 		}
+	} else if (interaction.isAutocomplete()) {
+		let cmd;
+		for (let folder of fs.readdirSync("./Commands/")) {
+			for (let file of fs.readdirSync("./Commands/" + folder)) {
+				if (file == interaction.commandName + ".js") {
+					let path = "./Commands/" + folder + "/" + interaction.commandName + ".js";
+					cmd = require(path);
+					break;
+				}
+			}
+			if (cmd != undefined) break;
+		}
+		try {
+			await cmd.autocomplete({ interaction });
+		} catch (error) {
+			console.error(error);
+		}
 	}
 });
 
