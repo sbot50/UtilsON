@@ -329,7 +329,6 @@ client.on("interactionCreate", async (interaction) => {
 	} else if (interaction.type == 5) {
 		await interaction.deferUpdate();
 		let cmd;
-		console.log(interaction);
 		if (interaction.message != null && interaction.message.interaction != null) {
 			cmd = interaction.message.interaction.commandName;
 		} else {

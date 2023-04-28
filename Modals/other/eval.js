@@ -18,8 +18,9 @@ let languages;
 module.exports = {
 	dontDefer: true,
 	async execute({ client, args, interaction }) {
-        args.code = interaction.fields.getTextInputValue("code")
-        console.log(interaction);
+        //args.code = interaction.fields.getTextInputValue("code")
+        console.log(interaction.fields);
+		console.log(interaction.components);
         return;
 		let languagename = args.language.split("-")[0];
 		let res = await tio.evaluate(
