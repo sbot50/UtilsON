@@ -2,9 +2,10 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const Discord = require("discord.js");
 const tio = require("tryitonline");
 const levenshtein = require("fast-levenshtein").get;
+let languages;
 (async () => {
 	let langs = await tio.languages();
-	const languages = langs.map((lang) => lang.id);
+	languages = langs.map((lang) => lang.id);
 })();
 
 module.exports = {
