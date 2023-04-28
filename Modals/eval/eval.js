@@ -16,35 +16,11 @@ let languages;
 })();
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName("eval")
-		.setDescription("Eval command for Bot Devs!")
-		.addStringOption((option) =>
-			option
-				.setName("language")
-				.setDescription("Coding language to use. (default is javascript-node)")
-				.setAutocomplete(true)
-		),
-	permissions: [],
 	dontDefer: true,
-	async execute({ client, args, guild, channel, member, interaction }) {
-		if (!args.language || !languages.includes(args.language)) {
-			args.language = "javascript-node";
-		}
-		let modal = new ModalBuilder()
-			.setCustomId("eval")
-			.setTitle("Language: " + args.language);
-
-		let code = new TextInputBuilder()
-			.setCustomId("code")
-			.setLabel("Code to eval.")
-			.setStyle(TextInputStyle.Paragraph)
-			.setRequired(true);
-		code = new ActionRowBuilder().addComponents(code);
-
-		modal.addComponents(code);
-		interaction.showModal(modal);
-		return;
+	async execute({ client, args, interaction }) {
+        args.code = interaction.fields.getTextInputValue("code")
+        console.log(interaction);
+        return;
 		let languagename = args.language.split("-")[0];
 		let res = await tio.evaluate(
 			{
