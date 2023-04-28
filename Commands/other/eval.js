@@ -36,7 +36,7 @@ module.exports = {
 			.setTitle("Language: " + args.language);
 
 		let code = new TextInputBuilder()
-			.setCustomId("code")
+			.setCustomId(args.language)
 			.setLabel("Code to eval.")
 			.setStyle(TextInputStyle.Paragraph)
 			.setRequired(true);

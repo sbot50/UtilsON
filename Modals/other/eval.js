@@ -18,14 +18,12 @@ let languages;
 module.exports = {
 	dontDefer: true,
 	async submit({ client, args, interaction }) {
-        //args.code = interaction.fields.getTextInputValue("code")
-        console.log(interaction.fields);
-		console.log(interaction.components);
-        return;
-		let languagename = args.language.split("-")[0];
+		let TextId = Array.from(interaction.fields.fields.keys())[0];
+		args.code = interaction.fields.getTextInputValue(TextId);
+		let languagename = TextId.split("-")[0];
 		let res = await tio.evaluate(
 			{
-				language: args.language,
+				language: TextId,
 				code: args.code,
 			},
 			30000
@@ -35,7 +33,15 @@ module.exports = {
 				.setColor(0xa31600)
 				.addFields([{ name: "**ERROR**", value: "Timed Out!" }])
 				.setFooter({ text: "Used NPM: 'tryitonline'" });
-			await interaction.editReply({ content: " ", embeds: [embed] });
+			await interaction
+				.reply({ content: " ", embeds: [embed], ephemeral: true })
+				.then((message) => {
+					setTimeout(function () {
+						try {
+							message.delete();
+						} catch {}
+					}, 5000);
+				});
 		}
 		if (args.code.length > 1014 - languagename.length)
 			args.code = args.code.substr(0, 1011 - languagename.length) + "...";
@@ -74,6 +80,6 @@ module.exports = {
 			]);
 		}
 		embed.setFooter({ text: "Used NPM: 'tryitonline'" });
-		await interaction.editReply({ content: " ", embeds: [embed] });
-	}
+		await interaction.reply({ content: " ", embeds: [embed] });
+	},
 };
