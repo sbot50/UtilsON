@@ -51,7 +51,8 @@
     "very-urban": "latest",
     "wikijs": "latest",
     "wolfram-alpha-api": "latest",
-    "youtube-search-api": "latest"
+    "youtube-search-api": "latest",
+    "tryitonline": "latest"
   },
   "devDependencies": {
     "node": "latest"
