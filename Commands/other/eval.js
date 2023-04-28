@@ -19,6 +19,7 @@ module.exports = {
 				.setAutocomplete(true)
 		),
 	permissions: [],
+  dontDefer: true,
 	async execute({ client, args, guild, channel, member, interaction }) {
 		if (!args.language || !languages.includes(args.language)) {
 			args.language = "javascript-node";
