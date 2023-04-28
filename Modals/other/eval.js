@@ -1,19 +1,5 @@
-const {
-	SlashCommandBuilder,
-	EmbedBuilder,
-	ActionRowBuilder,
-	ModalBuilder,
-	TextInputBuilder,
-	TextInputStyle,
-} = require("discord.js");
-const Discord = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const tio = require("tryitonline");
-const levenshtein = require("fast-levenshtein").get;
-let languages;
-(async () => {
-	let langs = await tio.languages();
-	languages = langs.map((lang) => lang.id);
-})();
 
 module.exports = {
 	dontDefer: true,
