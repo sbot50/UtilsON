@@ -30,6 +30,7 @@ module.exports = {
 		if (!args.language || !languages.includes(args.language)) {
 			args.language = "javascript-node";
 		}
+    let languagename = args.language.split("-")[0]
 		let res = await tio.evaluate(
 			{
 				language: args.language,
@@ -44,14 +45,14 @@ module.exports = {
 				.setFooter({ text: "Used NPM: 'tryitonline'" });
 			await interaction.editReply({ content: " ", embeds: [embed] });
 		}
-		if (args.code.length > 1014) args.code = args.code.substr(1011) + "...";
+		if (args.code.length > 1014 - languagename.length) args.code = args.code.substr(1011 - languagename.length) + "...";
 		if (res.output.length > 1014) res.output = res.output.substr(1011) + "...";
 		if (res.warnings.length > 1014) res.warnings = res.warnings.substr(1011) + "...";
 		if (res.debug.length > 1014) res.debug = res.debug.substr(1011) + "...";
 		let embed = new EmbedBuilder().setColor(0x1cd0ce).addFields([
 			{
 				name: "**Input**",
-				value: "```\n" + args.code + "\n```",
+				value: "```" + languagename + "\n" + args.code + "\n```",
 			},
 		]);
 		if (res.output.length > 0) {
