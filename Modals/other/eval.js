@@ -2,7 +2,6 @@ const { EmbedBuilder } = require("discord.js");
 const tio = require("tryitonline");
 
 module.exports = {
-	dontDefer: true,
 	async submit({ interaction }) {
 		let TextId = Array.from(interaction.fields.fields.keys())[0];
 		let code = interaction.fields.getTextInputValue(TextId);
@@ -20,7 +19,7 @@ module.exports = {
 				.addFields([{ name: "**ERROR**", value: "Timed Out!" }])
 				.setFooter({ text: "Used NPM: 'tryitonline'" });
 			await interaction
-				.reply({ content: " ", embeds: [embed], ephemeral: true })
+				.editReply({ content: " ", embeds: [embed], ephemeral: true })
 				.then((message) => {
 					setTimeout(function () {
 						try {
@@ -66,6 +65,6 @@ module.exports = {
 			]);
 		}
 		embed.setFooter({ text: "Used NPM: 'tryitonline'" });
-		await interaction.reply({ content: " ", embeds: [embed] });
+		await interaction.editReply({ content: " ", embeds: [embed] });
 	},
 };
