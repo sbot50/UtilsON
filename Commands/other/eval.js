@@ -62,7 +62,8 @@ module.exports = {
 		let focusedValue = interaction.options.getFocused();
 		let choices = await tio.languages();
 		choices = choices.map((lang) => lang.id);
-		let filtered = choices
+    let filtered = choices.filter(choice => choice.startsWith(focusedValue));
+		filtered = filtered
 			.map((lang) => ({ name: lang, dist: levenshtein(lang, focusedValue) }))
 			.sort((a, b) => a.dist - b.dist)
 			.slice(0, 25)
