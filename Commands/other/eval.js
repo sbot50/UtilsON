@@ -39,8 +39,8 @@ module.exports = {
 				.setFooter({ text: "Used NPM: 'tryitonline'" });
 			await interaction.editReply({ content: " ", embeds: [embed] });
 		}
-		if (args.code.length > 1024) args.code = args.code.substr(1011) + "...";
-		if (res.output.length > 1024) res.output = res.output.substr(1011) + "...";
+		if (args.code.length > 1014) args.code = args.code.substr(1010) + "...";
+		if (res.output.length > 1014) res.output = res.output.substr(1010) + "...";
 		let embed = new EmbedBuilder()
 			.setColor(0x1cd0ce)
 			.addFields([
