@@ -45,25 +45,21 @@ module.exports = {
 				.setFooter({ text: "Used NPM: 'tryitonline'" });
 			await interaction.editReply({ content: " ", embeds: [embed] });
 		}
-    console.log("Code length: " + args.code.length);
-    console.log("Output length: " + res.output.length);
-    console.log("Warnings length: " + res.warnings.length);
-    console.log("Debug length: " + res.debug.length);
-		if (args.code.length > 1014 - languagename.length) args.code = args.code.substr(1011 - languagename.length) + "...";
-		if (res.output.length > 1014) res.output = res.output.substr(1011) + "...";
-		if (res.warnings.length > 1014) res.warnings = res.warnings.substr(1011) + "...";
-		if (res.debug.length > 1014) res.debug = res.debug.substr(1011) + "...";
+		if (args.code.length > 1014 - languagename.length) args.code = args.code.substr(0,1011 - languagename.length) + "...";
+		if (res.output.length > 1014) res.output = res.output.substr(0,1011) + "...";
+		if (res.warnings.length > 1014) res.warnings = res.warnings.substr(0,1011) + "...";
+		if (res.debug.length > 1014) res.debug = res.debug.substr(0,1011) + "...";
 		let embed = new EmbedBuilder().setColor(0x1cd0ce).addFields([
 			{
 				name: "**Input**",
-				value: "```" + languagename + "\n" + args.code + "\n```",
+				value: "```" + languagename + "\n" + args.code.replace(/`/g,"´") + "\n```",
 			},
 		]);
 		if (res.output.length > 0) {
 			embed.addFields([
 				{
 					name: "**Eval**",
-					value: "```\n" + res.output + "\n```",
+					value: "```\n" + res.output.replace(/`/g,"´") + "\n```",
 				},
 			]);
 		}
@@ -71,7 +67,7 @@ module.exports = {
 			embed.addFields([
 				{
 					name: "**Warnings**",
-					value: "```\n" + res.warnings + "\n```",
+					value: "```\n" + res.warnings.replace(/`/g,"´") + "\n```",
 				},
 			]);
 		}
@@ -79,7 +75,7 @@ module.exports = {
 			embed.addFields([
 				{
 					name: "**Debug**",
-					value: "```\n" + res.debug + "\n```",
+					value: "```\n" + res.debug.replace(/`/g,"´") + "\n```",
 				},
 			]);
 		}
@@ -88,7 +84,6 @@ module.exports = {
 	},
 	async autocomplete({ interaction }) {
 		let focusedValue = interaction.options.getFocused();
-    console.log(languages)
 		let filtered = languages.filter((lang) => lang.startsWith(focusedValue));
 		filtered = filtered
 			.map((lang) => ({ name: lang, dist: levenshtein(lang, focusedValue) }))
