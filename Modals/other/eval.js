@@ -17,7 +17,7 @@ let languages;
 
 module.exports = {
 	dontDefer: true,
-	async execute({ client, args, interaction }) {
+	async submit({ client, args, interaction }) {
         //args.code = interaction.fields.getTextInputValue("code")
         console.log(interaction.fields);
 		console.log(interaction.components);
@@ -75,17 +75,5 @@ module.exports = {
 		}
 		embed.setFooter({ text: "Used NPM: 'tryitonline'" });
 		await interaction.editReply({ content: " ", embeds: [embed] });
-	},
-	async autocomplete({ interaction }) {
-		let focusedValue = interaction.options.getFocused();
-		let filtered = languages.filter((lang) => lang.startsWith(focusedValue));
-		filtered = filtered
-			.map((lang) => ({ name: lang, dist: levenshtein(lang, focusedValue) }))
-			.sort((a, b) => a.dist - b.dist)
-			.slice(0, 25)
-			.map((lang) => lang.name);
-		await interaction.respond(
-			filtered.map((choice) => ({ name: choice, value: choice }))
-		);
-	},
+	}
 };
