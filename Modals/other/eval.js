@@ -17,14 +17,14 @@ let languages;
 
 module.exports = {
 	dontDefer: true,
-	async submit({ client, args, interaction }) {
+	async submit({ interaction }) {
 		let TextId = Array.from(interaction.fields.fields.keys())[0];
-		args.code = interaction.fields.getTextInputValue(TextId);
+		let code = interaction.fields.getTextInputValue(TextId);
 		let languagename = TextId.split("-")[0];
 		let res = await tio.evaluate(
 			{
 				language: TextId,
-				code: args.code,
+				code: code,
 			},
 			30000
 		);
@@ -43,8 +43,8 @@ module.exports = {
 					}, 5000);
 				});
 		}
-		if (args.code.length > 1014 - languagename.length)
-			args.code = args.code.substr(0, 1011 - languagename.length) + "...";
+		if (code.length > 1014 - languagename.length)
+			code = code.substr(0, 1011 - languagename.length) + "...";
 		if (res.output.length > 1014) res.output = res.output.substr(0, 1011) + "...";
 		if (res.warnings.length > 1014)
 			res.warnings = res.warnings.substr(0, 1011) + "...";
@@ -52,7 +52,7 @@ module.exports = {
 		let embed = new EmbedBuilder().setColor(0x1cd0ce).addFields([
 			{
 				name: "**Input**",
-				value: "```" + languagename + "\n" + args.code.replace(/`/g, "´") + "\n```",
+				value: "```" + languagename + "\n" + code.replace(/`/g, "´") + "\n```",
 			},
 		]);
 		if (res.output.length > 0) {
