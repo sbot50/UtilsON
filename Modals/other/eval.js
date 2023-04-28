@@ -1,5 +1,13 @@
 const { EmbedBuilder } = require("discord.js");
 const tio = require("tryitonline");
+let languages;
+(async () => {
+	let langs = await tio.languages();
+	languages = langs.reduce((acc, item) => {
+		acc[item.id] = item.name;
+		return acc;
+	}, {});
+})();
 
 module.exports = {
 	deferReply: true,
@@ -35,12 +43,15 @@ module.exports = {
 		if (res.warnings.length > 1014)
 			res.warnings = res.warnings.substr(0, 1011) + "...";
 		if (res.debug.length > 1014) res.debug = res.debug.substr(0, 1011) + "...";
-		let embed = new EmbedBuilder().setColor(0x1cd0ce).addFields([
-			{
-				name: "**Input**",
-				value: "```" + languagename + "\n" + code.replace(/`/g, "´") + "\n```",
-			},
-		]);
+		let embed = new EmbedBuilder()
+			.setColor(0x1cd0ce)
+			.setTitle(languages[TextId])
+			.addFields([
+				{
+					name: "**Input**",
+					value: "```" + languagename + "\n" + code.replace(/`/g, "´") + "\n```",
+				},
+			]);
 		if (res.output.length > 0) {
 			embed.addFields([
 				{
