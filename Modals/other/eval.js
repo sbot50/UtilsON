@@ -2,6 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 const tio = require("tryitonline");
 
 module.exports = {
+	deferReply: true,
 	async submit({ interaction }) {
 		let TextId = Array.from(interaction.fields.fields.keys())[0];
 		let code = interaction.fields.getTextInputValue(TextId);

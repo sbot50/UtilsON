@@ -336,7 +336,11 @@ client.on("interactionCreate", async (interaction) => {
 		let modal = interaction.customId.replace(/\d+/g, "");
 		modal = require(`./Modals/${cmd}/${modal}.js`);
 		if (!modal.dontDefer) {
-			await interaction.deferUpdate();
+			if (!modal.deferReply) {
+				await interaction.deferUpdate();
+			} else {
+				await interaction.deferReply();
+			}
 		}
 		try {
 			await modal.submit({ client, guild, channel, member, interaction, db });
