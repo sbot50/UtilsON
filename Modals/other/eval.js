@@ -12,7 +12,7 @@ let languages;
 function toomuchtext(text,max) {
 	if (text.length > max) {
 		text = text.substr(0, max - 3)
-		if (!text.endsWith("\n")) text = text.substring(0, text.lastIndexOf("\n") - 1)
+		if (!text.endsWith("\n")) text = text.substring(0, text.lastIndexOf("\n") - 2)
 		text = text + "..."
 	}
 	return text;
