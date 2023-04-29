@@ -85,13 +85,13 @@ module.exports = {
 				},
 			]);
 		}
-		button = new ActionRowBuilder().addComponents(
-			new ButtonBuilder()
-				.setCustomId("stdin")
-				.setLabel("Run with Input")
-				.setStyle(ButtonStyle.Primary)
-		);
+		// button = new ActionRowBuilder().addComponents(
+		// 	new ButtonBuilder()
+		// 		.setCustomId("stdin")
+		// 		.setLabel("Run with Input")
+		// 		.setStyle(ButtonStyle.Primary)
+		// ); too lazy rn
 		embed.setFooter({ text: "Used NPM: 'tryitonline'" });
-		await interaction.editReply({ content: " ", embeds: [embed], components: [button] });
+		await interaction.editReply({ content: " ", embeds: [embed], /*components: [button]*/ });
 	},
 };

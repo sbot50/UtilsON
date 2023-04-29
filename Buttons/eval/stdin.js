@@ -1,14 +1,29 @@
 const Discord = require("discord.js");
-const gen = require("../../Commands/text/generatetext.js");
+let languages;
+(async () => {
+	let langs = await tio.languages();
+	languages = langs.reduce((acc, item) => {
+		acc[item.name] = item.id;
+		return acc;
+	  }, {});
+})();
+
+function toomuchtext(text, max) {
+	if (text.length > max) {
+		text = text.substr(0, max - 3);
+		if (!text.endsWith("\n") && text.lastIndexOf("\n") != -1)
+			text = text.substring(0, text.lastIndexOf("\n") + 1);
+		text = text + "...";
+	}
+	return text;
+}
 
 module.exports = {
 	async click({ member, interaction }) {
 		let message = interaction.message;
 		let embed = message.embeds[0];
-        console.log(embed);
-        return
-		let TextId = embed;
-		let code = interaction.fields.getTextInputValue(TextId);
+		let TextId = embed.title;
+		let code = embeds.fields[0].value;
 		let languagename = TextId.split("-")[0];
         await interaction.editReply({ content: " ", embeds: [embed] });
 		let res = await tio.evaluate(
