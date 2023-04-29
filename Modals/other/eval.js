@@ -88,7 +88,7 @@ module.exports = {
 		button = new ActionRowBuilder().addComponents(
 			new ButtonBuilder()
 				.setCustomId("stdin")
-				.setTitle("Run with Input")
+				.setLabel("Run with Input")
 				.setStyle(ButtonStyle.Primary)
 		);
 		embed.setFooter({ text: "Used NPM: 'tryitonline'" });
