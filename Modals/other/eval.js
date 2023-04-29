@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require("discord.js");
 const tio = require("tryitonline");
 let languages;
 (async () => {
@@ -9,11 +9,12 @@ let languages;
 	}, {});
 })();
 
-function toomuchtext(text,max) {
+function toomuchtext(text, max) {
 	if (text.length > max) {
-		text = text.substr(0, max - 3)
-		if (!text.endsWith("\n") && text.lastIndexOf("\n") != -1) text = text.substring(0, text.lastIndexOf("\n")+1)
-		text = text + "..."
+		text = text.substr(0, max - 3);
+		if (!text.endsWith("\n") && text.lastIndexOf("\n") != -1)
+			text = text.substring(0, text.lastIndexOf("\n") + 1);
+		text = text + "...";
 	}
 	return text;
 }
@@ -47,10 +48,10 @@ module.exports = {
 				});
 			return;
 		}
-		code = toomuchtext(code, 1014 - languagename.length)
-		res.output = toomuchtext(res.output, 1014)
-		res.warnings = toomuchtext(res.warnings, 1014)
-		res.debug = toomuchtext(res.debug, 1014)
+		code = toomuchtext(code, 1014 - languagename.length);
+		res.output = toomuchtext(res.output, 1014);
+		res.warnings = toomuchtext(res.warnings, 1014);
+		res.debug = toomuchtext(res.debug, 1014);
 		let embed = new EmbedBuilder()
 			.setColor(0x1cd0ce)
 			.setTitle(languages[TextId])
@@ -84,7 +85,13 @@ module.exports = {
 				},
 			]);
 		}
+		button = new ActionRowBuilder().addComponents(
+			new ButtonBuilder()
+				.setCustomId("stdin")
+				.setTitle("Run with Input")
+				.setStyle(ButtonStyle.Primary)
+		);
 		embed.setFooter({ text: "Used NPM: 'tryitonline'" });
-		await interaction.editReply({ content: " ", embeds: [embed] });
+		await interaction.editReply({ content: " ", embeds: [embed], components: [button] });
 	},
 };
