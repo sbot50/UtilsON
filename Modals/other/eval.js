@@ -9,6 +9,22 @@ let languages;
 	}, {});
 })();
 
+function toomuchtext(text,max) {
+	if (text.length > max) {
+		text = text.substr(0, max - 3)
+		if (!text.endsWith("\n")) {
+			text = text.split("\n");
+			if (text.length > 0) {
+				text.pop();
+			}
+			text = text.join("\n") + "..."
+		} else {
+			text = text + "..."
+		}
+	}
+	return text;
+}
+
 module.exports = {
 	deferReply: true,
 	async submit({ interaction }) {
@@ -36,13 +52,12 @@ module.exports = {
 						} catch {}
 					}, 5000);
 				});
+			return;
 		}
-		if (code.length > 1014 - languagename.length)
-			code = code.substr(0, 1011 - languagename.length) + "...";
-		if (res.output.length > 1014) res.output = res.output.substr(0, 1011) + "...";
-		if (res.warnings.length > 1014)
-			res.warnings = res.warnings.substr(0, 1011) + "...";
-		if (res.debug.length > 1014) res.debug = res.debug.substr(0, 1011) + "...";
+		code = toomuchtext(code, 1014 - languagename.length)
+		res.ouput = toomuchtext(res.ouput, 1014)
+		res.warnings = toomuchtext(res.warnings, 1014)
+		res.debug = toomuchtext(res.debug, 1014)
 		let embed = new EmbedBuilder()
 			.setColor(0x1cd0ce)
 			.setTitle(languages[TextId])
