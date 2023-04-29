@@ -12,15 +12,8 @@ let languages;
 function toomuchtext(text,max) {
 	if (text.length > max) {
 		text = text.substr(0, max - 3)
-		if (!text.endsWith("\n")) {
-			text = text.split("\n");
-			if (text.length > 0) {
-				text.pop();
-			}
-			text = text.join("\n") + "..."
-		} else {
-			text = text + "..."
-		}
+		if (!text.endsWith("\n")) text = text.substring(0, text.lastIndexOf("\n") - 1)
+		text = text + "..."
 	}
 	return text;
 }
@@ -55,7 +48,7 @@ module.exports = {
 			return;
 		}
 		code = toomuchtext(code, 1014 - languagename.length)
-		res.ouput = toomuchtext(res.ouput, 1014)
+		res.output = toomuchtext(res.output, 1014)
 		res.warnings = toomuchtext(res.warnings, 1014)
 		res.debug = toomuchtext(res.debug, 1014)
 		let embed = new EmbedBuilder()
