@@ -1,6 +1,7 @@
 const fs = require("fs");
 const got = require("got");
 const key = process.env.DB_TOKEN;
+const id = process.env.DB_ID;
 
 class Database {
   constructor(path) {
@@ -10,6 +11,7 @@ class Database {
     let res = {};
     let error;
     try {
+      guilds.push("wavecollapse")
       await Promise.all(
         guilds.map(async (guild) => {
           let item = await got(
