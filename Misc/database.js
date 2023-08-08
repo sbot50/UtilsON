@@ -7,7 +7,7 @@ class Database {
     this.data = {};
   }
   async load(guilds) {
-    let res = [];
+    let res = {};
     let error;
     try {
       await Promise.all(
@@ -23,7 +23,8 @@ class Database {
           if (item.value) res[item.key] = item.value;
         })
       );
-    } catch {
+    } catch (err) {
+      console.log(err);
       error += 1;
     }
     if (!error) {
