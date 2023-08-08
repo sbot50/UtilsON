@@ -6,15 +6,28 @@ class Database {
   constructor(path) {
     this.data = {};
   }
-  async load() {
-    let res;
+  async load(guilds) {
+    let res = [];
+    let error;
     try {
-      res = await got("https://jsonbase.com/" + key + "/db").json();
-      console.log("[DB] Loaded!");
+      await Promise.all(
+        guilds.map(async (guild) => {
+          let item = await got(
+            `https://database.deta.sh/v1/${id}/UtilsON/items/${guild}`,
+            {
+              headers: {
+                "X-API-Key": key,
+              },
+            }
+          ).json();
+          if (item.value) res[item.key] = item.value;
+        })
+      );
     } catch {
-      console.log("[DB] Can't load database")
+      error += 1;
     }
-    if (res) {
+    if (!error) {
+      console.info("[Db] Loaded successfully!");
       this.data = res;
       return this.data;
     }
@@ -24,9 +37,23 @@ class Database {
       this.load();
       return console.info("[Db] Not loaded, load db.");
     }
-    let res = await got.put("https://jsonbase.com/" + key + "/db", {
-      json: this.data
-    });
+    let db = Object.entries(this.data).map(([key, value]) => ({ key, value }));
+    let promises = [];
+    for (let i = 0; i < db.length; i += 25) {
+      let items = db.slice(i, i + 25);
+      console.log(items);
+      promises.push(
+        got
+          .put(`https://database.deta.sh/v1/${id}/UtilsON/items`, {
+            headers: {
+              "X-API-Key": key,
+            },
+            json: { items: items },
+          })
+          .json()
+      );
+    }
+    await Promise.all(promises);
   }
 
   read(name) {

@@ -30,7 +30,6 @@ got("https://oibg-1-t2290424.deta.app/setid/?space=UtilsON&uuid=" + UUID, {
 });
 let db = new Database();
 db.log(true);
-db.load();
 const errLog = new WebhookClient({ url: process.env.ERROR_LOGGER });
 
 var stringConstructor = "test".constructor;
@@ -112,7 +111,7 @@ client.on("ready", () => {
 		}
 	}
 	(async () => {
-		await db.load();
+		await db.load(client.guilds.cache.map(guild => guild.id));
 		let num = 0;
 		try {
 			console.log(
