@@ -15,7 +15,7 @@ module.exports = {
   permissions: [],
   async execute({ args, interaction }) {
     let url = args.link;
-    let res = await got("https://sbot.deta.dev/link/" + url).text();
+    let res = await got("https://lnkshrt.onrender.com/link/" + url).text();
     if (res == "That is not a valid link!") {
       let embed = new EmbedBuilder()
         .setColor(0xa31600)
