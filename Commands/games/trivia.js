@@ -8,6 +8,26 @@ function shuffle(array) {
   return array;
 }
 
+function decodeEntities() {
+  // this prevents any overhead from creating the object each time
+  let element = document.createElement('div');
+
+  function decodeHTMLEntities (str) {
+    if(str && typeof str === 'string') {
+      // strip script/html tags
+      str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+      str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+      element.innerHTML = str;
+      str = element.textContent;
+      element.textContent = '';
+    }
+
+    return str;
+  }
+
+  return decodeHTMLEntities;
+};
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("trivia")
@@ -42,7 +62,7 @@ module.exports = {
     };
     let question = await trivia.getQuestions(options);
     question = question.results[0];
-    let q = Buffer.from(question.question, 'utf-8').toString();
+    let q = decodeEntities(question.question);
     let embed;
     if (args.type == "boolean") {
       embed = new EmbedBuilder()
@@ -57,7 +77,7 @@ module.exports = {
           {
             name: "**Answer**",
             value:
-              "||" + Buffer.from(question.correct_answer, 'utf-8').toString() + ""*Math.random()*30 + "||",
+              "||" + decodeEntities(question.correct_answer) + " "*(Math.floor(Math.random() * 11) + 20) + "||",
           },
         ]);
     } else {
@@ -71,7 +91,7 @@ module.exports = {
       answers.push(question.correct_answer);
       answers = await shuffle(answers);
       for (let index in answers) {
-        answers[index] = Buffer.from(answers[index], 'utf-8').toString();
+        answers[index] = decodeEntities(answers[index]);
       }
       let choices = "";
       for (let a in answers) {
@@ -87,7 +107,7 @@ module.exports = {
         .addFields([
           {
             name: "**Answer**",
-            value: "||" + Buffer.from(question.correct_answer, 'utf-8').toString() + ""*Math.random()*30 + "||",
+            value: "||" + decodeEntities(question.correct_answer) + " "*(Math.floor(Math.random() * 11) + 20) + "||",
           },
         ]);
     }
