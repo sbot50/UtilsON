@@ -2,31 +2,12 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const Discord = require("discord.js");
 const Trivia = require("trivia-api");
 const trivia = new Trivia({ encoding: "url3986" });
+const htmlEntities = require('html-entities');
 
 function shuffle(array) {
   array.sort(() => Math.random() - 0.5);
   return array;
 }
-
-function decodeEntities() {
-  // this prevents any overhead from creating the object each time
-  let element = document.createElement('div');
-
-  function decodeHTMLEntities (str) {
-    if(str && typeof str === 'string') {
-      // strip script/html tags
-      str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-      str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
-      element.innerHTML = str;
-      str = element.textContent;
-      element.textContent = '';
-    }
-
-    return str;
-  }
-
-  return decodeHTMLEntities;
-};
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -62,7 +43,7 @@ module.exports = {
     };
     let question = await trivia.getQuestions(options);
     question = question.results[0];
-    let q = decodeEntities(question.question);
+    let q = htmlEntities.decode(question.question);
     let embed;
     if (args.type == "boolean") {
       embed = new EmbedBuilder()
@@ -77,7 +58,7 @@ module.exports = {
           {
             name: "**Answer**",
             value:
-              "||" + decodeEntities(question.correct_answer) + " "*(Math.floor(Math.random() * 11) + 20) + "||",
+              "||" + htmlEntities.decode(question.correct_answer) + " "*(Math.floor(Math.random() * 11) + 20) + "||",
           },
         ]);
     } else {
@@ -91,7 +72,7 @@ module.exports = {
       answers.push(question.correct_answer);
       answers = await shuffle(answers);
       for (let index in answers) {
-        answers[index] = decodeEntities(answers[index]);
+        answers[index] = htmlEntities.decode(answers[index]);
       }
       let choices = "";
       for (let a in answers) {
@@ -107,7 +88,7 @@ module.exports = {
         .addFields([
           {
             name: "**Answer**",
-            value: "||" + decodeEntities(question.correct_answer) + " "*(Math.floor(Math.random() * 11) + 20) + "||",
+            value: "||" + htmlEntities.decode(question.correct_answer) + " "*(Math.floor(Math.random() * 11) + 20) + "||",
           },
         ]);
     }

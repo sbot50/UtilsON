@@ -52,7 +52,8 @@
     "wikijs": "latest",
     "wolfram-alpha-api": "latest",
     "youtube-search-api": "latest",
-    "tryitonline": "latest"
+    "tryitonline": "latest",
+    "html-entities": "latest"
   },
   "devDependencies": {
     "node": "latest"
