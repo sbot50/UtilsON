@@ -42,10 +42,7 @@ module.exports = {
     };
     let question = await trivia.getQuestions(options);
     question = question.results[0];
-    let q = question.question
-      .replace(/&#039;/g, "'")
-      .replace(/&quot;/g, '"')
-      .replace(/&amp;/g, "&");
+    let q = Buffer.from(question.question, 'utf-8').toString();
     let embed;
     if (args.type == "boolean") {
       embed = new EmbedBuilder()
@@ -60,12 +57,7 @@ module.exports = {
           {
             name: "**Answer**",
             value:
-              "||" +
-              question.correct_answer
-                .replace(/&#039;/g, "'")
-                .replace(/&quot;/g, '"')
-                .replace(/&amp;/g, "&") +
-              "||",
+              "||" + Buffer.from(question.correct_answer, 'utf-8').toString() + ""*Math.random()*30 + "||",
           },
         ]);
     } else {
@@ -79,10 +71,7 @@ module.exports = {
       answers.push(question.correct_answer);
       answers = await shuffle(answers);
       for (let index in answers) {
-        answers[index] = answers[index]
-          .replace(/&#039;/g, "'")
-          .replace(/&quot;/g, '"')
-          .replace(/&amp;/g, "&");
+        answers[index] = Buffer.from(answers[index], 'utf-8').toString();
       }
       let choices = "";
       for (let a in answers) {
@@ -98,7 +87,7 @@ module.exports = {
         .addFields([
           {
             name: "**Answer**",
-            value: "||" + question.correct_answer + "||",
+            value: "||" + Buffer.from(question.correct_answer, 'utf-8').toString() + ""*Math.random()*30 + "||",
           },
         ]);
     }
