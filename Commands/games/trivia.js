@@ -58,7 +58,7 @@ module.exports = {
           {
             name: "**Answer**",
             value:
-              "||" + htmlEntities.decode(question.correct_answer) + " "*(Math.floor(Math.random() * 11) + 20) + "||",
+              "||" + htmlEntities.decode(question.correct_answer) + " ".repeat(Math.floor(Math.random() * 11) + 20) + "||",
           },
         ]);
     } else {
