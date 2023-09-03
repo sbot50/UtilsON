@@ -15,8 +15,8 @@ module.exports = {
   permissions: [],
   async execute({ args, interaction }) {
     let url = args.link;
-    let res = await got("https://lnkshrt.onrender.com/link/" + url).text();
-    if (res == "That is not a valid link!") {
+    let res = await got("https://shrt.surge.sh/link/" + url).text();
+    if (res == "ERROR: Not a valid link!") {
       let embed = new EmbedBuilder()
         .setColor(0xa31600)
         .addFields([
