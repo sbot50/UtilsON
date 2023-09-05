@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
-  async click({ interaction }) {
+  async click({ member, interaction }) {
     let message = interaction.message;
     let owner = message.interaction.user.id;
     if (member.user.id != owner) {
