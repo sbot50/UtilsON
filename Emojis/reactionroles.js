@@ -4,7 +4,7 @@ const fs = require("fs");
 let emotes = JSON.parse(fs.readFileSync("./Misc/emojis.json", "utf-8")).emojis;
 
 module.exports = {
-  async react({ emoji, user, member, reaction }) {
+  async react({ emoji, user, interaction, member, reaction }) {
     let message = interaction.message;
     let owner = message.interaction.user.id;
     if (member.user.id != owner) {
