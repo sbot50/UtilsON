@@ -211,12 +211,15 @@ module.exports = {
           motd = motd + "\\n" + rawmotd[line];
         }
       }
-      embed.setImage(
+      let buff = await got(
         "https://sbot50.alwaysdata.net/?text=" +
           encodeURIComponent(motd) +
           "&rng=" +
           Date.now()
-      );
+      ).buffer();
+      let tti = await new AttachmentBuilder(buff, { name: "TTI.png" });
+      embed.setImage("attachment://TTI.png");
+      files.push(tti);
     }
     if (stats.icon != undefined) {
       let base64 = stats.icon.split(",")[1];

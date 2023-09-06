@@ -4,8 +4,8 @@ const fs = require("fs");
 let emotes = JSON.parse(fs.readFileSync("./Misc/emojis.json", "utf-8")).emojis;
 
 module.exports = {
-  async react({ emoji, user, interaction, member, reaction }) {
-    let message = interaction.message;
+  async react({ emoji, user, message, member, reaction }) {
+    let interaction = message.interaction;
     let owner = message.interaction.user.id;
     if (member.user.id != owner) {
       let oldmsg = interaction.message.embeds[0];
