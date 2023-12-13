@@ -8,8 +8,7 @@ const dice = {
   5: "https://upload.wikimedia.org/wikipedia/commons/5/55/Alea_5.png",
   6: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Alea_6.png",
 };
-// <a href="https://imgbb.com/"><img src="https://i.ibb.co/Jkn2mwH/download.png" alt="download" border="0"></a>
-// <a href="https://imgbb.com/"><img src="https://i.ibb.co/R2Pp6rp/download2.png" alt="download2" border="0"></a>
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("diceroll")
