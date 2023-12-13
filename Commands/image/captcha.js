@@ -124,7 +124,7 @@ module.exports = {
       //     let loc2 = value[2];
       //     ctx.fillText(letter, loc1, loc2);
       //   }
-      let captcha = new AttachmentBuilder(await image.encode()), {
+      let captcha = new AttachmentBuilder(await image.encode(), {
         name: "CAPTCHA.png",
       });
       let embed = new EmbedBuilder()
