@@ -5,6 +5,7 @@ const {
 } = require("discord.js");
 // const { registerFont, createCanvas } = require("canvas");
 const { Image } = require("imagescript");
+const fs = require("fs");
 const Discord = require("discord.js");
 
 module.exports = {
@@ -56,11 +57,11 @@ module.exports = {
       //   registerFont("./Fonts/comic.ttf", { family: "Comic Sans MS" });
       //   registerFont("./Fonts/wingdings.ttf", { family: "Wingdings" });
       let fonts = [
-        require("../../Fonts/arial.ttf").then(r => r.arrayBuffer()).then(b => new Uint8Array(b)),
-        require("../../Fonts/calibri.ttf").then(r => r.arrayBuffer()).then(b => new Uint8Array(b)),
-        require("../../Fonts/times_new_roman.ttf").then(r => r.arrayBuffer()).then(b => new Uint8Array(b)),
-        require("../../Fonts/roadrage.ttf").then(r => r.arrayBuffer()).then(b => new Uint8Array(b)),
-        require("../../Fonts/comic.ttf").then(r => r.arrayBuffer()).then(b => new Uint8Array(b)),
+        fs.readFileSync("../../Fonts/arial.ttf").then(r => r.arrayBuffer()).then(b => new Uint8Array(b)),
+        fs.readFileSync("../../Fonts/calibri.ttf").then(r => r.arrayBuffer()).then(b => new Uint8Array(b)),
+        fs.readFileSync("../../Fonts/times_new_roman.ttf").then(r => r.arrayBuffer()).then(b => new Uint8Array(b)),
+        fs.readFileSync("../../Fonts/roadrage.ttf").then(r => r.arrayBuffer()).then(b => new Uint8Array(b)),
+        fs.readFileSync("../../Fonts/comic.ttf").then(r => r.arrayBuffer()).then(b => new Uint8Array(b)),
       ];
       //let ctx = canvas.getContext("2d");
       let p1 = image.width;
