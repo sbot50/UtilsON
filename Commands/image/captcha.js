@@ -57,26 +57,11 @@ module.exports = {
       //   registerFont("./Fonts/comic.ttf", { family: "Comic Sans MS" });
       //   registerFont("./Fonts/wingdings.ttf", { family: "Wingdings" });
       let fonts = [
-        fs
-          .readFileSync("./Fonts/arial.ttf")
-          .then((r) => r.arrayBuffer())
-          .then((b) => new Uint8Array(b)),
-        fs
-          .readFileSync("./Fonts/calibri.ttf")
-          .then((r) => r.arrayBuffer())
-          .then((b) => new Uint8Array(b)),
-        fs
-          .readFileSync("./Fonts/times_new_roman.ttf")
-          .then((r) => r.arrayBuffer())
-          .then((b) => new Uint8Array(b)),
-        fs
-          .readFileSync("./Fonts/roadrage.ttf")
-          .then((r) => r.arrayBuffer())
-          .then((b) => new Uint8Array(b)),
-        fs
-          .readFileSync("./Fonts/comic.ttf")
-          .then((r) => r.arrayBuffer())
-          .then((b) => new Uint8Array(b)),
+        new Uint8Array(fs.readFileSync("./Fonts/arial.ttf")),
+        new Uint8Array(fs.readFileSync("./Fonts/calibri.ttf")),
+        new Uint8Array(fs.readFileSync("./Fonts/times_new_roman.ttf")),
+        new Uint8Array(fs.readFileSync("./Fonts/roadrage.ttf")),
+        new Uint8Array(fs.readFileSync("./Fonts/comic.ttf")),
       ];
       //let ctx = canvas.getContext("2d");
       let p1 = image.width;
