@@ -69,7 +69,7 @@ module.exports = {
           rngfont,
           Math.floor(Math.random() * 35) + 5,
           char,
-          Math.floor(Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0'))
+          Math.floor(Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, 'f'))
         );
         image = image.composite(text, loc1, loc2);
       }
@@ -96,7 +96,7 @@ module.exports = {
             0,
             Math.sqrt(l2[0] ^ (2 + l2[1]) ^ 2),
             3,
-            0xff0000ff
+            0xff000000
           );
           line.rotate(
             (Math.atan2(l2[1] - l1[1], l2[0] - l1[0]) * 180) / Math.PI
@@ -117,7 +117,7 @@ module.exports = {
           rngfont,
           45,
           letter,
-          Math.floor(Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0'))
+          Math.floor(Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, 'f'))
         );
         image = image.composite(text, loc1, loc2);
         //ctx.fillText(letter, loc1, loc2);
