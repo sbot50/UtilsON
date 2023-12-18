@@ -90,8 +90,16 @@ module.exports = {
           // ctx.moveTo(l2[0], l2[1]);
           // ctx.lineTo(l1[0], l1[1]);
           // ctx.stroke();
-          line = Image.drawBox(0,0,Math.sqrt(x^2+y^2),3,0xff000000);
-          line.rotate((Math.atan2(y2 - y1, x2 - x1)*180)/Math.PI);
+          line = Image.drawBox(
+            0,
+            0,
+            Math.sqrt(l2[0] ^ (2 + l2[1]) ^ 2),
+            3,
+            0xff000000
+          );
+          line.rotate(
+            (Math.atan2(l2[1] - l1[1], l2[0] - l1[0]) * 180) / Math.PI
+          );
           image.composite(line, l2[0], l2[1]);
         }
       }
