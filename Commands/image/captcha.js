@@ -79,31 +79,31 @@ module.exports = {
       let loc1 = 0;
       let offset = (image.width - 100) / text.length;
       let array = [];
-      for (let j = 0; j < text.length; j++) {
-        loc1 = loc1 + offset;
-        let loc2 = Math.random() * (p2 - 50) + 50;
-        l2 = l1;
-        l1 = [loc1, loc2];
-        let list = [text[j], loc1, loc2];
-        array.push(list);
-        if (l2 != -1) {
-          // ctx.moveTo(l2[0], l2[1]);
-          // ctx.lineTo(l1[0], l1[1]);
-          // ctx.stroke();
-          let line = new Image(500, 200);
-          line.drawBox(
-            0,
-            0,
-            Math.sqrt((l1[0]-l2[0]) ^ 2 + (l1[1]-l2[1]) ^ 2),
-            3,
-            0xff000000
-          );
-          line.rotate(
-            (Math.atan2(l2[1] - l1[1], l2[0] - l1[0]) * 180) / Math.PI
-          );
-          image.composite(line, l2[0], l2[1]);
-        }
-      }
+      // for (let j = 0; j < text.length; j++) {
+      //   loc1 = loc1 + offset;
+      //   let loc2 = Math.random() * (p2 - 50) + 50;
+      //   l2 = l1;
+      //   l1 = [loc1, loc2];
+      //   let list = [text[j], loc1, loc2];
+      //   array.push(list);
+      //   if (l2 != -1) {
+      //     // ctx.moveTo(l2[0], l2[1]);
+      //     // ctx.lineTo(l1[0], l1[1]);
+      //     // ctx.stroke();
+      //     let line = new Image(500, 200);
+      //     line.drawBox(
+      //       0,
+      //       0,
+      //       Math.sqrt((l1[0]-l2[0]) ^ 2 + (l1[1]-l2[1]) ^ 2),
+      //       3,
+      //       0xff000000
+      //     );
+      //     line.rotate(
+      //       (Math.atan2(l2[1] - l1[1], l2[0] - l1[0]) * 180) / Math.PI
+      //     );
+      //     image.composite(line, l2[0], l2[1]);
+      //   }
+      // }
       for (let k = 0; k < array.length; k++) {
         let rngfont = fonts[Math.floor(Math.random() * fonts.length)];
         if (wingdingsmode == 1) {
