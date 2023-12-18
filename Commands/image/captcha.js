@@ -90,7 +90,8 @@ module.exports = {
           // ctx.moveTo(l2[0], l2[1]);
           // ctx.lineTo(l1[0], l1[1]);
           // ctx.stroke();
-          line = Image.drawBox(
+          let line = new Image(500, 200);
+          line.drawBox(
             0,
             0,
             Math.sqrt(l2[0] ^ (2 + l2[1]) ^ 2),
