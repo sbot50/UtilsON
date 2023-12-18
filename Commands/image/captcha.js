@@ -94,7 +94,7 @@ module.exports = {
           line.drawBox(
             0,
             0,
-            Math.sqrt(l2[0] ^ (2 + l2[1]) ^ 2),
+            Math.sqrt((l1[0]-l2[0]) ^ 2 + (l1[1]-l2[1]) ^ 2),
             3,
             0xff000000
           );
