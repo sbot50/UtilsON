@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "8ball.js": "latest",
     "@discordjs/rest": "latest",
     "acronymresolver": "latest",
     "base64-arraybuffer": "latest",
