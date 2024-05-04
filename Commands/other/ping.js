@@ -5,6 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("ping")
     .setDescription("Returns the bots ping!"),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ client, interaction }) {
     let embed = new EmbedBuilder()

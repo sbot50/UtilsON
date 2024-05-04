@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  AttachmentBuilder,
+} = require("discord.js");
 const Discord = require("discord.js");
 const got = require("got");
 const is = require("imagescript");
@@ -43,6 +47,7 @@ module.exports = {
         )
         .setRequired(false)
     ),
+  integration_types: [0, 1],
   permissions: ["AttachFiles"],
   async execute({ args, interaction }) {
     let err = 0;
@@ -68,7 +73,7 @@ module.exports = {
     try {
       await timeout(3000, got(link)).catch(() => (err = 1));
     } catch {
-      err = 1
+      err = 1;
     }
     if (err == 1) {
       let embed = new EmbedBuilder()

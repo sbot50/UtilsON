@@ -17,6 +17,7 @@ module.exports = {
         .setDescription("Message to display after the timer is finished!")
         .setRequired(false)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, channel, interaction }) {
     let num = args.seconds;

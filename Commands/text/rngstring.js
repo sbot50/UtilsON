@@ -14,6 +14,7 @@ module.exports = {
         .setDescription("How long should the string be? (caps at 1000)")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, interaction }) {
     let length = Math.max(Math.min(args.length, 1000), 10);

@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  AttachmentBuilder,
+} = require("discord.js");
 const fs = require("fs");
 const got = require("got");
 const Discord = require("discord.js");
@@ -22,6 +26,7 @@ module.exports = {
         .setDescription("Enable slow mode! (max = 1, min = 0.1)")
         .setRequired(false)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, channel, interaction }) {
     let text = args.text;
@@ -40,14 +45,12 @@ module.exports = {
             speed = 0.1;
           }
         } else {
-          let embed = new EmbedBuilder()
-            .setColor(0xa31600)
-            .addFields([
-              {
-                name: "**ERROR**",
-                value: "Speed needs to be a number!",
-              },
-            ])
+          let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+            {
+              name: "**ERROR**",
+              value: "Speed needs to be a number!",
+            },
+          ]);
           await interaction
             .editReply({ content: " ", embeds: [embed], ephemeral: true })
             .then((message) => {
@@ -74,14 +77,12 @@ module.exports = {
         request = undefined;
       }
       if (request == undefined || request.status == 404) {
-        let embed = new EmbedBuilder()
-          .setColor(0xa31600)
-          .addFields([
-            {
-              name: "**ERROR**",
-              value: "An error accured when changing text to speech!",
-            },
-          ])
+        let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+          {
+            name: "**ERROR**",
+            value: "An error accured when changing text to speech!",
+          },
+        ]);
         await interaction
           .editReply({ content: " ", embeds: [embed], ephemeral: true })
           .then((message) => {
@@ -108,18 +109,16 @@ module.exports = {
             name: "**Settings**",
             value: "Language: " + lang + "\nSpeed: " + speed,
           },
-        ])
+        ]);
       await interaction.editReply({ content: " ", embeds: [embed] });
       channel.send({ files: [tts] });
     } else {
-      let embed = new EmbedBuilder()
-        .setColor(0xa31600)
-        .addFields([
-          {
-            name: "**ERROR**",
-            value: "Input too long, it needs to be 200 characters or less.",
-          },
-        ])
+      let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+        {
+          name: "**ERROR**",
+          value: "Input too long, it needs to be 200 characters or less.",
+        },
+      ]);
       await interaction
         .editReply({ content: " ", embeds: [embed], ephemeral: true })
         .then((message) => {

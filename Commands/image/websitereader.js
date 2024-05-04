@@ -12,20 +12,19 @@ module.exports = {
         .setDescription("Link to the site!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: ["EmbedLinks"],
   async execute({ args, interaction }) {
     let link = args.link;
     let err = 0;
     await got(link).catch(() => (err = 1));
     if (err == 1) {
-      let embed = new EmbedBuilder()
-        .setColor(0xa31600)
-        .addFields([
-          {
-            name: "**ERROR**",
-            value: "Not a valid URL!",
-          },
-        ])
+      let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+        {
+          name: "**ERROR**",
+          value: "Not a valid URL!",
+        },
+      ]);
       await interaction
         .editReply({ content: " ", embeds: [embed], ephemeral: true })
         .then((message) => {
@@ -50,9 +49,7 @@ module.exports = {
       link = "https://lmgtfy.app/?q=" + link + "&iie=1&s=g&l=en";
       await interaction.editReply({ content: link });
     } else {
-      let embed = new EmbedBuilder()
-        .setColor(0x1cd0ce)
-        .setDescription(rng)
+      let embed = new EmbedBuilder().setColor(0x1cd0ce).setDescription(rng);
       await interaction.editReply({ content: " ", embeds: [embed] });
     }
   },

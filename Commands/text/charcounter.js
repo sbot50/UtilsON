@@ -11,6 +11,7 @@ module.exports = {
         .setDescription("What text to count from?")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, interaction }) {
     let text = args.text.replace(/\\n/g, "");

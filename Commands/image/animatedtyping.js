@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  AttachmentBuilder,
+} = require("discord.js");
 const Discord = require("discord.js");
 const got = require("got");
 const is = require("imagescript");
@@ -12,6 +16,7 @@ module.exports = {
     .addStringOption((option) =>
       option.setName("text").setDescription("Text to animate").setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: ["AttachFiles"],
   async execute({ args, interaction }) {
     let text = args.text;

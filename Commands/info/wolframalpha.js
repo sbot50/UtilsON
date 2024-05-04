@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  AttachmentBuilder,
+} = require("discord.js");
 const Discord = require("discord.js");
 const got = require("got");
 
@@ -9,6 +13,7 @@ module.exports = {
     .addStringOption((option) =>
       option.setName("input").setDescription("Input.").setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: ["AttachFiles"],
   async execute({ client, args, interaction }) {
     let text = "";

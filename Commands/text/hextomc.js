@@ -13,6 +13,7 @@ module.exports = {
         .setDescription("What hex needs to be transformed?")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, interaction }) {
     let out = args.hex;

@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  AttachmentBuilder,
+} = require("discord.js");
 const Discord = require("discord.js");
 const got = require("got");
 
@@ -21,6 +25,7 @@ module.exports = {
         .setDescription("Link to the site!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ client, args, interaction }) {
     let link = args.link;
@@ -28,34 +33,32 @@ module.exports = {
     try {
       await timeout(3000, got(link));
     } catch {
-      err = 1
+      err = 1;
     }
-    let buffer; 
+    let buffer;
     try {
       buffer = await got
-      .post("https://chrome.browserless.io/screenshot", {
-        headers: { "User-Agent": "TotallyMozilla" },
-        json: {
-          url: args.link,
-          options: {
-            fullPage: true,
-            type: "png",
+        .post("https://chrome.browserless.io/screenshot", {
+          headers: { "User-Agent": "TotallyMozilla" },
+          json: {
+            url: args.link,
+            options: {
+              fullPage: true,
+              type: "png",
+            },
           },
-        },
-      })
-      .buffer();
+        })
+        .buffer();
     } catch {
       err = 1;
     }
     if (err == 1) {
-      let embed = new EmbedBuilder()
-        .setColor(0xa31600)
-        .addFields([
-          {
-            name: "**ERROR**",
-            value: "Not a valid URL!",
-          },
-        ])
+      let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+        {
+          name: "**ERROR**",
+          value: "Not a valid URL!",
+        },
+      ]);
       await interaction
         .editReply({ content: " ", embeds: [embed], ephemeral: true })
         .then((message) => {

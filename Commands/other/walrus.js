@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder().setName("walrus").setDescription("Walrus."),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ interaction }) {
     await interaction.editReply({

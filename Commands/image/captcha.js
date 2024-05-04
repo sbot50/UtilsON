@@ -20,6 +20,7 @@ module.exports = {
         )
         .setRequired(false)
     ),
+  integration_types: [0, 1],
   permissions: ["AttachFiles"],
   async execute({ args, interaction }) {
     let orgtext;
@@ -69,7 +70,11 @@ module.exports = {
           rngfont,
           Math.floor(Math.random() * 35) + 5,
           char,
-          Math.floor(Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, 'f'))
+          Math.floor(
+            Math.floor(Math.random() * 0xffffff)
+              .toString(16)
+              .padStart(6, "f")
+          )
         );
         image = image.composite(text, loc1, loc2);
       }
@@ -117,7 +122,11 @@ module.exports = {
           rngfont,
           45,
           letter,
-          Math.floor(Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, 'f'))
+          Math.floor(
+            Math.floor(Math.random() * 0xffffff)
+              .toString(16)
+              .padStart(6, "f")
+          )
         );
         image = image.composite(text, loc1, loc2);
         //ctx.fillText(letter, loc1, loc2);

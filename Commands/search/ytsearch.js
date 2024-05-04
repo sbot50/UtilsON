@@ -13,6 +13,7 @@ module.exports = {
         .setDescription("Text to search for!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: ["EmbedLinks"],
   async execute({ args, channel, interaction }) {
     let err;

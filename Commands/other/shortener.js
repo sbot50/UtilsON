@@ -12,19 +12,18 @@ module.exports = {
         .setDescription("Link to shorten!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, interaction }) {
     let url = args.link;
     let res = await got("https://shrt.surge.sh/link/" + url).text();
     if (res == "ERROR: Not a valid link!") {
-      let embed = new EmbedBuilder()
-        .setColor(0xa31600)
-        .addFields([
-          {
-            name: "**ERROR**",
-            value: "Not a valid URL!",
-          },
-        ])
+      let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+        {
+          name: "**ERROR**",
+          value: "Not a valid URL!",
+        },
+      ]);
       await interaction
         .editReply({ content: " ", embeds: [embed], ephemeral: true })
         .then((message) => {
@@ -36,15 +35,13 @@ module.exports = {
         });
       return;
     } else if (res.length > 1024) {
-      let embed = new EmbedBuilder()
-        .setColor(0xa31600)
-        .addFields([
-          {
-            name: "**ERROR**",
-            value:
-              "The link shortener is currently down, please try again later.",
-          },
-        ])
+      let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+        {
+          name: "**ERROR**",
+          value:
+            "The link shortener is currently down, please try again later.",
+        },
+      ]);
       await interaction
         .editReply({ content: " ", embeds: [embed], ephemeral: true })
         .then((message) => {
@@ -69,7 +66,7 @@ module.exports = {
             name: "**Shortened**",
             value: res,
           },
-        ])
+        ]);
       await interaction.editReply({ content: " ", embeds: [embed] });
     }
   },

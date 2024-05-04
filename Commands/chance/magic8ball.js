@@ -33,6 +33,7 @@ module.exports = {
         .setDescription("What do you want to ask?")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ client, args, interaction }) {
     let response = responses[Math.floor(Math.random() * responses.length)];

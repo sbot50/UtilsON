@@ -9,6 +9,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("coinflip")
     .setDescription("Returns heads or tails!"),
+  integration_types: [0,1],
   permissions: [],
   async execute({ client, interaction }) {
     let rng = Math.floor(Math.random() * (2 - 1 + 1) + 1);

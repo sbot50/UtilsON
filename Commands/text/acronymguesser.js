@@ -13,6 +13,7 @@ module.exports = {
         .setDescription("The acronym to guess!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, interaction }) {
     if (args.acronym.length > 25) {

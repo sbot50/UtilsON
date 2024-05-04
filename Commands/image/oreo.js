@@ -10,6 +10,7 @@ module.exports = {
     .addStringOption((option) =>
       option.setName("text").setDescription("test").setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, interaction }) {
     let embed = new EmbedBuilder()
@@ -20,7 +21,10 @@ module.exports = {
           value: args.text,
         },
       ])
-      .setImage("https://untitled-ldytaposfu6c.runkit.sh/" + args.text.replace(/[^oreo]+/g,""))
+      .setImage(
+        "https://untitled-ldytaposfu6c.runkit.sh/" +
+          args.text.replace(/[^oreo]+/g, "")
+      )
       .setFooter({
         text: "Made by BlazeMCworld",
         url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png",

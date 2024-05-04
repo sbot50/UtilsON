@@ -12,6 +12,7 @@ module.exports = {
         .setDescription("Text to search for!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, interaction }) {
     let error = 0;

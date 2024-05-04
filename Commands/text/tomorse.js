@@ -12,6 +12,7 @@ module.exports = {
         .setDescription("Text to transform!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, interaction }) {
     let out = await morse.textToMorse(args.text);

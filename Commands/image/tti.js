@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  AttachmentBuilder,
+} = require("discord.js");
 const got = require("got");
 const Discord = require("discord.js");
 
@@ -16,6 +20,7 @@ module.exports = {
         )
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: ["AttachFiles"],
   async execute({ args, interaction }) {
     let text = args.text;
@@ -38,7 +43,7 @@ module.exports = {
         .setImage("attachment://TTI.png")
         .setFooter({
           text: "Base Text Render by BlazeMCworld || Used NPMs: 'canvas, twemoji-parser'",
-          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png"
+          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png",
         });
       await interaction.editReply({
         content: " ",
@@ -56,7 +61,7 @@ module.exports = {
         ])
         .setFooter({
           text: "Base Text Render by BlazeMCworld || Used NPMs: 'canvas, twemoji-parser'",
-          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png"
+          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png",
         });
       await interaction
         .editReply({ content: " ", embeds: [embed], ephemeral: true })

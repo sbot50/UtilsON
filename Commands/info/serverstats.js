@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  AttachmentBuilder,
+} = require("discord.js");
 const mcsrv = require("mcsrv");
 const Discord = require("discord.js");
 const util = require("minecraft-server-util");
@@ -29,6 +33,7 @@ module.exports = {
           { name: "Bedrock", value: "Bedrock" }
         )
     ),
+  integration_types: [0, 1],
   permissions: ["EmbedLinks", "AttachFiles"],
   async execute({ args, interaction, staticmsg }) {
     let err;
@@ -46,14 +51,12 @@ module.exports = {
       err = 1;
     }
     if (err == 1 || stats == undefined || stats.ip == "127.0.0.1") {
-      let embed = new EmbedBuilder()
-        .setColor(0xa31600)
-        .addFields([
-          {
-            name: "**ERROR**",
-            value: "Something went wrong retrieving server info!",
-          },
-        ])
+      let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+        {
+          name: "**ERROR**",
+          value: "Something went wrong retrieving server info!",
+        },
+      ]);
       if (!staticmsg) {
         await interaction
           .editReply({ content: " ", embeds: [embed], ephemeral: true })
@@ -70,7 +73,8 @@ module.exports = {
           .setColor(0x1cd0ce)
           .setAuthor({
             name: "Unknown",
-            iconURL: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/white-circle_26aa.png"
+            iconURL:
+              "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/white-circle_26aa.png",
           })
           .addFields([
             {
@@ -106,12 +110,14 @@ module.exports = {
     if (stats.online) {
       embed.setAuthor({
         name: "Online",
-        iconURL: "https://i.ibb.co/nBL2phn/dbd26c4768e6ce541f5b857b4973226e.png"
+        iconURL:
+          "https://i.ibb.co/nBL2phn/dbd26c4768e6ce541f5b857b4973226e.png",
       });
     } else {
       embed.setAuthor({
         name: "Offline",
-        iconURL: "https://i.ibb.co/fX3z6K1/a0a7f6cf67b863940eceaa40397e2030.png"
+        iconURL:
+          "https://i.ibb.co/fX3z6K1/a0a7f6cf67b863940eceaa40397e2030.png",
       });
     }
     if (stats.hostname != undefined) {

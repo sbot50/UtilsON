@@ -11,6 +11,7 @@ module.exports = {
     .addStringOption((option) =>
       option.setName("word").setDescription("Word to define!").setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, interaction }) {
     let text = args.word;
@@ -112,15 +113,13 @@ module.exports = {
       await interaction.editReply({ content: " ", embeds: [embed] });
     } else {
       if (err == "503") {
-        let embed = new EmbedBuilder()
-          .setColor(0xa31600)
-          .addFields([
-            {
-              name: "**ERROR**",
-              value:
-                "I am sorry the dictionary API is currently offline, I can't do anything but wait",
-            },
-          ])
+        let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+          {
+            name: "**ERROR**",
+            value:
+              "I am sorry the dictionary API is currently offline, I can't do anything but wait",
+          },
+        ]);
         await interaction
           .editReply({ content: " ", embeds: [embed], ephemeral: true })
           .then((message) => {
@@ -133,17 +132,15 @@ module.exports = {
         return;
       }
       if (text.length < 900) {
-        let embed = new EmbedBuilder()
-          .setColor(0xa31600)
-          .addFields([
-            {
-              name: "**ERROR**",
-              value:
-                'I am sorry "' +
-                text +
-                "\" isn't in the DataBase and/or the Dictionary",
-            },
-          ])
+        let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+          {
+            name: "**ERROR**",
+            value:
+              'I am sorry "' +
+              text +
+              "\" isn't in the DataBase and/or the Dictionary",
+          },
+        ]);
         await interaction
           .editReply({ content: " ", embeds: [embed], ephemeral: true })
           .then((message) => {
@@ -155,15 +152,13 @@ module.exports = {
           });
         return;
       } else {
-        let embed = new EmbedBuilder()
-          .setColor(0xa31600)
-          .addFields([
-            {
-              name: "**ERROR**",
-              value:
-                "I am sorry the message you asked me to define is too big and isn't in the DataBase and/or Dictionary",
-            },
-          ])
+        let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+          {
+            name: "**ERROR**",
+            value:
+              "I am sorry the message you asked me to define is too big and isn't in the DataBase and/or Dictionary",
+          },
+        ]);
         await interaction
           .editReply({ content: " ", embeds: [embed], ephemeral: true })
           .then((message) => {

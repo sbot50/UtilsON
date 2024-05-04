@@ -22,6 +22,7 @@ module.exports = {
         .setDescription("Link to lengthen!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, interaction }) {
     let url = args.link;

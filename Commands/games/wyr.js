@@ -12,6 +12,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("wyr")
     .setDescription("Would you rather?"),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ client, interaction }) {
     let rand = rng(1, 500000);

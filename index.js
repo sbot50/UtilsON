@@ -104,9 +104,13 @@ client.on("ready", () => {
 		for (let file of fs.readdirSync("./Commands/" + folder)) {
 			let command = require(`./Commands/${folder}/${file}`);
 			if (command.data != undefined && command.devcmd != true) {
-				commands.push(command.data.toJSON());
+				let cmd = command.data.toJSON();
+				if (command.integration_types) cmd.integration_types = command.integration_types;
+				commands.push(cmd);
 			} else if (command.data != undefined && command.devcmd == true) {
-				devcmds.push(command.data.toJSON())
+				let cmd = command.data.toJSON();
+				if (command.integration_types) cmd.integration_types = command.integration_types;
+				devcmds.push(cmd)
 			}
 		}
 	}

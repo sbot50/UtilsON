@@ -3,7 +3,7 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const Discord = require("discord.js");
 const https = require("https");
 const got = require("got");
-const gis = require('async-g-i-s');
+const gis = require("async-g-i-s");
 let cache = new Map();
 
 const agent = new https.Agent({
@@ -57,22 +57,23 @@ module.exports = {
         .setDescription("Text to search for!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: ["EmbedLinks"],
   async execute({ args, skips, interaction, button }) {
     if (button == undefined) button = false;
     let components = new ActionRowBuilder()
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("previous")
-        .setLabel("Previous")
-        .setStyle(ButtonStyle.Danger)
-    )
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("next")
-        .setLabel("Next")
-        .setStyle(ButtonStyle.Success)
-    );
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId("previous")
+          .setLabel("Previous")
+          .setStyle(ButtonStyle.Danger)
+      )
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId("next")
+          .setLabel("Next")
+          .setStyle(ButtonStyle.Success)
+      );
     if (button) {
       let components = interaction.message.components;
       for (component in components[0].components) {
@@ -92,32 +93,37 @@ module.exports = {
     }
     if (cache.has(args.searchquery)) {
       let cached = cache.get(args.searchquery);
-      let res,index = skips;
-      console.log(skips, index)
-      console.log(cached.length)
+      let res,
+        index = skips;
+      console.log(skips, index);
+      console.log(cached.length);
       while (index < cached.length - 1) {
         let url;
         try {
-          url = cached[index].url
+          url = cached[index].url;
         } catch {
-          delete cached[index]
+          delete cached[index];
           continue;
         }
-        console.log(url)
+        console.log(url);
         try {
           res = await timeout(5000, got(url));
         } catch {}
-        console.log(res ? "valid" : "invalid")
+        console.log(res ? "valid" : "invalid");
         if (res) {
           res = url;
           break;
         } else {
-          delete cached[index]
+          delete cached[index];
         }
       }
       if (skips > cached.length - 1 || !res) {
         let oldmsg = interaction.message.embeds[0];
-        await interaction.editReply({ content: " ", embeds: [oldmsg], components: [components] });
+        await interaction.editReply({
+          content: " ",
+          embeds: [oldmsg],
+          components: [components],
+        });
         let embed = new EmbedBuilder()
           .addFields([
             { name: "**ERROR**", value: "Max image fetch limit reached!" },
@@ -143,7 +149,7 @@ module.exports = {
           },
         ])
         .setImage(res)
-        .setFooter({text: "Page: " + (skips + 1) + " || Used NPMs: 'g-i-s'"});
+        .setFooter({ text: "Page: " + (skips + 1) + " || Used NPMs: 'g-i-s'" });
       await interaction.editReply({
         content: " ",
         embeds: [embed],
@@ -151,12 +157,12 @@ module.exports = {
       });
       return;
     }
-    let results,error;
-    console.log("Getting Images...")
+    let results, error;
+    console.log("Getting Images...");
     try {
-      results = await gis(args.searchquery)
+      results = await gis(args.searchquery);
     } catch {
-      error = 1
+      error = 1;
     }
     if (error || results.length == 0) {
       let embed = new EmbedBuilder()
@@ -179,8 +185,8 @@ module.exports = {
         });
       return;
     }
-    console.log("Got Images!")
-    console.log("Getting First valid...")
+    console.log("Got Images!");
+    console.log("Getting First valid...");
     let firstres;
     let amount = skips;
     for (let r of results) {
@@ -210,7 +216,7 @@ module.exports = {
         }
       }
     }
-    console.log("Gotten first image...")
+    console.log("Gotten first image...");
     //await addmap(results, args.searchquery);
     cache.set(args.searchquery, results);
     let embed = new EmbedBuilder()

@@ -25,6 +25,7 @@ module.exports = {
         .setDescription("The QR-Code color in hex! (Default: #000000)")
         .setRequired(false)
     ),
+  integration_types: [0, 1],
   permissions: ["EmbedLinks"],
   async execute({ args, interaction }) {
     let bgc = "ffffff00";

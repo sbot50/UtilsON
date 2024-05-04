@@ -33,6 +33,7 @@ module.exports = {
             .setRequired(false)
         )
     ),
+  integration_types: [0, 1],
   permissions: ["EmbedLinks", "AttachFiles"],
   async execute({ client, args, member, interaction, db }) {
     let sub = interaction.options._subcommand;

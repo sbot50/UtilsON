@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const Discord = require("discord.js");
 const Trivia = require("trivia-api");
 const trivia = new Trivia({ encoding: "url3986" });
-const htmlEntities = require('html-entities');
+const htmlEntities = require("html-entities");
 
 function shuffle(array) {
   array.sort(() => Math.random() - 0.5);
@@ -34,6 +34,7 @@ module.exports = {
           { name: "Hard", value: "hard" }
         )
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ client, args, interaction }) {
     let options = {
@@ -58,7 +59,10 @@ module.exports = {
           {
             name: "**Answer**",
             value:
-              "||" + htmlEntities.decode(question.correct_answer) + "⠀".repeat(Math.floor(Math.random() * 11) + 20) + "||",
+              "||" +
+              htmlEntities.decode(question.correct_answer) +
+              "⠀".repeat(Math.floor(Math.random() * 11) + 20) +
+              "||",
           },
         ]);
     } else {
@@ -88,7 +92,11 @@ module.exports = {
         .addFields([
           {
             name: "**Answer**",
-            value: "||" + htmlEntities.decode(question.correct_answer) + "⠀".repeat(Math.floor(Math.random() * 11) + 20) + "||",
+            value:
+              "||" +
+              htmlEntities.decode(question.correct_answer) +
+              "⠀".repeat(Math.floor(Math.random() * 11) + 20) +
+              "||",
           },
         ]);
     }

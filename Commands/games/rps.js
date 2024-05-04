@@ -6,6 +6,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("rps")
     .setDescription("Start a game of rps!"),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ interaction }) {
     let row = new ActionRowBuilder().addComponents(

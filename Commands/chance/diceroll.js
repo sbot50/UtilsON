@@ -13,6 +13,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("diceroll")
     .setDescription("Returns a number from 1 to 6!"),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ client, interaction }) {
     let rng = Math.floor(Math.random() * (6 - 1 + 1) + 1);

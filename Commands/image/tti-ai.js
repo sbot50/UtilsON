@@ -14,6 +14,7 @@ module.exports = {
         .setDescription("What to make an image from!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: ["EmbedLinks"],
   async execute({ args, interaction, button }) {
     if (button == undefined) button = false;

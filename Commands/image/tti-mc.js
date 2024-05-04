@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  AttachmentBuilder,
+} = require("discord.js");
 const got = require("got");
 const Discord = require("discord.js");
 let Jimp = require("jimp");
@@ -32,6 +36,7 @@ module.exports = {
         .setDescription("Text to transform!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: ["AttachFiles"],
   async execute({ args, member, interaction }) {
     let allblocks = await got(
@@ -110,7 +115,7 @@ module.exports = {
         msg = msg + "\n- " + l;
       }
       let embed = new EmbedBuilder()
-        .setColor(0xFFA500)
+        .setColor(0xffa500)
         .addFields([
           {
             name: "**ERROR**",
@@ -119,7 +124,7 @@ module.exports = {
         ])
         .setFooter({
           text: "Base Renderer by BlazeMCworld || Used NPMs: 'Jimp'",
-          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png"
+          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png",
         });
       await interaction.editReply({
         content: " ",
@@ -139,7 +144,7 @@ module.exports = {
         ])
         .setFooter({
           text: "Base Renderer by BlazeMCworld || Used NPMs: 'Jimp'",
-          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png"
+          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png",
         });
       await interaction
         .editReply({ content: " ", embeds: [embed], ephemeral: true })
@@ -175,7 +180,7 @@ module.exports = {
         .setImage("attachment://TTI.png")
         .setFooter({
           text: "Base Renderer by BlazeMCworld || Used NPMs: 'Jimp'",
-          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png"
+          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png",
         });
       await interaction.editReply({
         content: " ",
@@ -193,7 +198,7 @@ module.exports = {
         ])
         .setFooter({
           text: "Base Renderer by BlazeMCworld || Used NPMs: 'Jimp'",
-          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png"
+          url: "https://cdn.discordapp.com/avatars/520308897735639041/9649c6bbec229d695865e965666d6237.png",
         });
       await interaction
         .editReply({ content: " ", embeds: [embed], ephemeral: true })

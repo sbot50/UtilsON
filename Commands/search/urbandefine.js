@@ -10,6 +10,7 @@ module.exports = {
     .addStringOption((option) =>
       option.setName("word").setDescription("Word to define!").setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ args, interaction }) {
     let total = 0;

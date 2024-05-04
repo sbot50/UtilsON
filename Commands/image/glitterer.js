@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  AttachmentBuilder,
+} = require("discord.js");
 const Discord = require("discord.js");
 const got = require("got");
 const is = require("imagescript");
@@ -28,6 +32,7 @@ module.exports = {
         .setDescription("Link to the image/gif!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: ["AttachFiles"],
   async execute({ args, interaction }) {
     let err = 0;

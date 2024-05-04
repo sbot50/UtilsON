@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const errorhandler = require("./../../Misc/weberrorhandler.js");
 const Discord = require("discord.js");
-var giphy = require('giphy-api')(process.env.GIPHY);
+var giphy = require("giphy-api")(process.env.GIPHY);
 var channel;
 var clint;
 var membr;
@@ -16,6 +16,7 @@ module.exports = {
         .setDescription("Text to search for!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: ["EmbedLinks"],
   async execute({ client, args, guild, channel, member, interaction }) {
     membr = member;
@@ -77,8 +78,8 @@ process.on("uncaughtException", (err) => {
     let name = membr.user.username;
     let pic = membr.user.avatarURL();
     embed.setAuthor({
-      name: name, 
-      iconURL: pic
+      name: name,
+      iconURL: pic,
     });
     chanl.send(embed).then((message) => {
       setTimeout(function () {

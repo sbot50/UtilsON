@@ -5,6 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("botstats")
     .setDescription("Gets the bot's stats!"),
+  integration_types: [0, 1],
   permissions: [],
   async execute({ client, interaction }) {
     let channel = client.guilds.cache
@@ -18,9 +19,9 @@ module.exports = {
     let version = /v\d+\.\d+\.\d+/.exec(lastmsg.content)[0];
     let date = /\d+\/\d+\/\d+/.exec(lastmsg.content)[0];
     if (lastmsg.content.length > 1014) {
-      lastmsg = lastmsg.content.substr(0,1011) + "..."
+      lastmsg = lastmsg.content.substr(0, 1011) + "...";
     } else {
-      lastmsg = lastmsg.content
+      lastmsg = lastmsg.content;
     }
     let embed = new EmbedBuilder()
       .setColor(0x1cd0ce)

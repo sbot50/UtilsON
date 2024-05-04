@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  AttachmentBuilder,
+} = require("discord.js");
 const errorhandler = require("./../../Misc/weberrorhandler.js");
 const got = require("got");
 const Discord = require("discord.js");
@@ -39,6 +43,7 @@ module.exports = {
         .setDescription("Name or UUID of the player!")
         .setRequired(true)
     ),
+  integration_types: [0, 1],
   permissions: ["AttachFiles"],
   async execute({ args, interaction }) {
     let uuid;
@@ -62,14 +67,12 @@ module.exports = {
         }
       }
       if (err == 1) {
-        let embed = new EmbedBuilder()
-          .setColor(0xa31600)
-          .addFields([
-            {
-              name: "**ERROR**",
-              value: "Something went wrong, please try again!",
-            },
-          ])
+        let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+          {
+            name: "**ERROR**",
+            value: "Something went wrong, please try again!",
+          },
+        ]);
         await interaction
           .editReply({ content: " ", embeds: [embed], ephemeral: true })
           .then((message) => {
@@ -82,14 +85,12 @@ module.exports = {
         return;
       }
       if (names.statusText == "Bad Request") {
-        let embed = new EmbedBuilder()
-          .setColor(0xa31600)
-          .addFields([
-            {
-              name: "**ERROR**",
-              value: "Theres no minecraft player with that UUID!",
-            },
-          ])
+        let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+          {
+            name: "**ERROR**",
+            value: "Theres no minecraft player with that UUID!",
+          },
+        ]);
         await interaction
           .editReply({ content: " ", embeds: [embed], ephemeral: true })
           .then((message) => {
@@ -114,23 +115,19 @@ module.exports = {
         try {
           names = await timeout(
             3000,
-            got(
-              `https://api.mojang.com/users/profiles/minecraft/${args.name}`
-            )
+            got(`https://api.mojang.com/users/profiles/minecraft/${args.name}`)
           );
         } catch {
           err = 1;
         }
       }
       if (err == 1) {
-        let embed = new EmbedBuilder()
-          .setColor(0xa31600)
-          .addFields([
-            {
-              name: "**ERROR**",
-              value: "Something went wrong, please try again!",
-            },
-          ])
+        let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+          {
+            name: "**ERROR**",
+            value: "Something went wrong, please try again!",
+          },
+        ]);
         await interaction
           .editReply({ content: " ", embeds: [embed], ephemeral: true })
           .then((message) => {
@@ -143,14 +140,12 @@ module.exports = {
         return;
       }
       if (names.statusText == "No Content") {
-        let embed = new EmbedBuilder()
-          .setColor(0xa31600)
-          .addFields([
-            {
-              name: "**ERROR**",
-              value: "Theres no minecraft player with that name!",
-            },
-          ])
+        let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+          {
+            name: "**ERROR**",
+            value: "Theres no minecraft player with that name!",
+          },
+        ]);
         await interaction
           .editReply({ content: " ", embeds: [embed], ephemeral: true })
           .then((message) => {
@@ -182,14 +177,12 @@ module.exports = {
         }
       }
       if (err == 1) {
-        let embed = new EmbedBuilder()
-          .setColor(0xa31600)
-          .addFields([
-            {
-              name: "**ERROR**",
-              value: "Something went wrong, please try again!",
-            },
-          ])
+        let embed = new EmbedBuilder().setColor(0xa31600).addFields([
+          {
+            name: "**ERROR**",
+            value: "Something went wrong, please try again!",
+          },
+        ]);
         await interaction
           .editReply({ content: " ", embeds: [embed], ephemeral: true })
           .then((message) => {
@@ -242,7 +235,7 @@ module.exports = {
           value: pastnames,
         },
       ])
-      .setThumbnail("attachment://AVATAR.png")
+      .setThumbnail("attachment://AVATAR.png");
     await interaction.editReply({
       content: " ",
       embeds: [embed],
