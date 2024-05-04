@@ -105,11 +105,17 @@ client.on("ready", () => {
 			let command = require(`./Commands/${folder}/${file}`);
 			if (command.data != undefined && command.devcmd != true) {
 				let cmd = command.data.toJSON();
-				if (command.integration_types) cmd.integration_types = command.integration_types;
+				if (command.integration_types) {
+					cmd.integration_types = command.integration_types;
+					cmd.contexts = [0, 1, 2];
+				}
 				commands.push(cmd);
 			} else if (command.data != undefined && command.devcmd == true) {
 				let cmd = command.data.toJSON();
-				if (command.integration_types) cmd.integration_types = command.integration_types;
+				if (command.integration_types) {
+					cmd.integration_types = command.integration_types;
+					cmd.contexts = [0, 1, 2];
+				}
 				devcmds.push(cmd)
 			}
 		}
@@ -232,13 +238,18 @@ client.on("guildMemberAdd", async (member) => {
 
 client.on("interactionCreate", async (interaction) => {
 	let guild = await client.guilds.cache.get(interaction.guildId);
-	let channel = await guild.channels.cache.get(interaction.channelId);
-	let needed = ["ViewChannel", "SendMessages", "SendMessagesInThreads"];
-	let hasperms = await checkperms(interaction, needed);
-	if (!hasperms) {
-		return;
+	let channel, member;
+	if (guild) {
+		channel = await guild.channels.cache.get(interaction.channelId);
+		let needed = ["ViewChannel", "SendMessages", "SendMessagesInThreads"];
+		let hasperms = await checkperms(interaction, needed);
+		if (!hasperms) {
+			return;
+		}
+		member = await guild.members.fetch(interaction.member.user.id);
+	} else {
+		member = interaction.member;
 	}
-	let member = await guild.members.fetch(interaction.member.user.id);
 	let cmd;
 	if (interaction.type == 2) {
 		let argslist = await interaction.options._hoistedOptions;
