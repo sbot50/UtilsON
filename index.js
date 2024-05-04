@@ -271,9 +271,11 @@ client.on("interactionCreate", async (interaction) => {
 			await interaction.deferReply();
 		}
 		let needed = cmd.permissions;
-		let hasperms = await checkperms(interaction, needed, (deferred = 1));
-		if (!hasperms) {
-			return;
+		if (guild && guild.channels) {
+			let hasperms = await checkperms(interaction, needed, (deferred = 1));
+			if (!hasperms) {
+				return;
+			}
 		}
 		try {
 			await cmd.execute({
