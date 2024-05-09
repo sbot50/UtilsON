@@ -53,7 +53,7 @@ module.exports = {
     let err = 0;
     let link = args.link;
     let speed = args.speed;
-    if (speed == undefined || speed < 0 || speed > 3) {
+    if (speed == undefined || speed < 1 || speed > 3) {
       speed = 1;
     }
     if (link.endsWith(".webp")) {
